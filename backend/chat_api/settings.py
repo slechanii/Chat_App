@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
     'chat',
 ]
@@ -59,7 +61,20 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://localhost:8080',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
 ROOT_URLCONF = 'chat_api.urls'
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'jwt_auth.utils.my_jwt_response_handler',
+    'JWT_VERIFY_EXPIRATION': False,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+}
 
 TEMPLATES = [
     {
