@@ -7,6 +7,8 @@ from . import views
 
 router = DefaultRouter()
 router.register('profile', views.ProfileViewSet)
+router.register('channels', views.ChannelViewSet)
+router.register('messages', views.MessageViewSet)
 
 urlpatterns = [
     #  path('api-token-auth/', obtain_auth_token, name='api_token_auth'),

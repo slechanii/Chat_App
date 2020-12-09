@@ -11,6 +11,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'user', 
         )
 
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Message
+        fields = ("__all__")         
+
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -43,3 +48,10 @@ class UserSerializerWithToken(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('token', 'username', 'password')
+
+class ChannelSerializer(serializers.ModelSerializer):
+    message_set = MessageSerializer(many=True, read_only=True)
+    class Meta:
+        model = models.Channel
+        # messages = MessageSerializer(many=True)    
+        fields = ('name', 'channel_member', 'message_set')
