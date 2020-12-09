@@ -54,11 +54,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    'localhost:3000',
-    'localhost:8080',
-)
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:8080',
+]
 ROOT_URLCONF = 'chat_api.urls'
 
 TEMPLATES = [
