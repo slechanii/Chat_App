@@ -1,20 +1,47 @@
 /*
     WORKSPACE START
 */
+
+#root {
+    height: 100vh;    
+}
+
+main{
+    height: 100%;
+}
+
 .workspace-grid{
     /* height: 100%; */
-    height: 100vh !important;
+    height: 100% !important;
     padding: 0 !important;
 }
 
+.workspace-first-row{
+    background: #361737;
+    /* height: 100px; */
+    width: 100%;
+    height: 3%;
+}
+
+.workspace-second-row{
+    width: 100%;
+    height: 97%;
+}
+
+*{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .workspace-menu{
-    padding: 0 !important; 
-    background: purple !important;
+    /* padding: 0 !important;  */
+    background: #401C41 !important;
+    height: 100%;
     
 }
 
 .workspace-chat{
-    background: gray !important;
+    background: white !important;
 }
 /*
     WORKSPACE END
