@@ -2,6 +2,8 @@
     WORKSPACE START
 */
 
+ 
+
 #root {
     height: 100vh;    
 }
@@ -28,16 +30,47 @@ main{
     height: 97%;
 }
 
+.bold{
+    font-weight: bold;
+}
+
 *{
     padding: 0 !important;
     margin: 0 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important
+}
+
+.workspace-name-grid{
+    height: 100% !important;
+    padding-top: 6% !important;
+    padding-bottom: 7% !important;
+    padding-left: 5% !important;
+}
+
+.workspace-name-grid:hover{
+    background: #361737;
+    cursor: pointer;
 }
 
 .workspace-menu{
     /* padding: 0 !important;  */
     background: #401C41 !important;
     height: 100%;
+    color: white;
     
+}
+
+.new-message-btn{
+    height: 125%;
+    width: 50%;
+    background: white !important;
+    float: right !important;
+    margin-right: 15% !important;
+    /* padding-bottom: 10px !important; */
+}
+
+.testcol{
+    /* margin-top: 1.25% !important;  */
 }
 
 .workspace-chat{
