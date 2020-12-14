@@ -10,19 +10,31 @@ export default class ChannelsMenu extends Component {
         activeIndex: 0,
         hover: false,
         channels: [],
+        profile_id: null,
     };
 
+    getProfile = () => {
+        axios.post(configData.SERVER_URL + "getProfile/", {"username": localStorage.getItem("username")})
+        .then((result) => {
+            // this.setState({channels: result.data})
+            this.setState({profile_id: result.data})
+            this.getChannels();
+        })
+        .catch((error) => {console.log(error)})
+    }
+
     componentDidMount() {
-        this.getChannels();
+        this.getProfile();
+        // this.getChannels();
     }    
     /*
         Get subscribed channels / GET / params : profile_id         
     */ 
     getChannels = () => {
-        axios.post(configData.SERVER_URL + "getChannels/", {"profile_id": 1})
+        axios.post(configData.SERVER_URL + "getChannels/", {"profile_id": this.state.profile_id})
         .then((result) => {
             this.setState({channels: result.data})
-            
+            // alert(JSON.s)
         })
         .catch((error) => {console.log(error)})
     }

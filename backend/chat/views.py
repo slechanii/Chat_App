@@ -32,6 +32,17 @@ def getUserChannels(request):
     subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.values("name", "id")
     return Response(subscribed_channels)
 
+class ProfileView(APIView):
+    authentication_classes = [authentication.TokenAuthentication] 
+    permissions_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, format=None):
+        if request.data["username"] is not None:
+            user = models.User.objects.get(username=request.data["username"])
+            profile = models.Profile.objects.get(user=user)
+            return Response(profile.id)
+        return Response("Error, provide username")    
+
 class UserChannels(APIView):
     authentication_classes = [authentication.TokenAuthentication] 
     permissions_classes = [permissions.IsAuthenticated]

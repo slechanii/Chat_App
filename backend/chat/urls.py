@@ -17,4 +17,5 @@ urlpatterns = [
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'), #Refresh token 
     path('users/', views.UserList.as_view()), # create user with username + password
     path('getChannels/', views.UserChannels.as_view()),
+    path('getProfile/', views.ProfileView.as_view()),
 ]
