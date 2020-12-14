@@ -5,7 +5,8 @@ from rest_framework import permissions, status
 from . import models, serializers
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-
+import json
+from rest_framework import authentication, permissions
 # Create your views here.
 
 
@@ -25,13 +26,23 @@ class MessageViewSet(viewsets.ModelViewSet):
 Gives ids and names of all channels user is a part of 
 params : profile_id
 """
-@api_view(['GET'])
-def getUserChannels(request):
+@api_view(['POST'])
+def getUserChannels(request): 
+    # permissions_classes = (permissions.IsAuthenticated)   
     subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.values("name", "id")
     return Response(subscribed_channels)
 
+class UserChannels(APIView):
+    authentication_classes = [authentication.TokenAuthentication] 
+    permissions_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, format=None):
+        subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.values("name", "id")
+        return Response(subscribed_channels)
+
+
 class UserList(APIView):
-    permission_classes = (permissions.AllowAny,)
+    # permission_classes = (permissions.AllowAny,)
     serializer = serializers.UserSerializer()
 
     def post(self, request, format=None):

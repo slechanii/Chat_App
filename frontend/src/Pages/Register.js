@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { Button, Grid, GridRow, GridColumn, Form } from 'semantic-ui-react'
 import axios from 'axios';
+import { Redirect } from "react-router-dom";
 
 export default class Register extends Component {
 
-    state = { username: '', password: '', submittedUsername: '', submittedPassword: '' }
+    state = {
+        username: '', password: '', submittedUsername: '', submittedPassword: '', redirect: false,
+    }
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
@@ -12,22 +15,25 @@ export default class Register extends Component {
         const { username, password } = this.state
 
         this.setState({ submittedUsername: username, submittedPassword: password })
-        this.registerAccount(username, password)        
+        this.registerAccount(username, password)
     }
 
     registerAccount = (username, password) => {
-        axios.post("http://127.0.0.1:8000/api/users/", {username:username, password:password})
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        })
-        .catch(error => {
-            alert("Error : " + error)
-        })
+        axios.post("http://127.0.0.1:8000/api/users/", { username: username, password: password })
+            .then(res => {
+                localStorage.setItem("username", username)
+                this.setState({redirect:true})
+            })
+            .catch(error => {
+                alert("Error : " + error)
+            })
     }
 
     render() {
-        const { username, password, submittedUsername, submittedPassword } = this.state 
+        const { username, password, submittedUsername, submittedPassword } = this.state
+        if (this.state.redirect === true){
+            return <Redirect to="/workspace" />
+        }
         return (
             <Grid verticalAlign="middle" columns={4} >
                 <GridRow verticalAlign="middle" centered>
