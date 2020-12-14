@@ -42,15 +42,7 @@ export default class WorkspaceMenu extends Component {
                     {/* Channels list */}
                     <ChannelsMenu></ChannelsMenu>
 
-                    {/* Add Channels */}
-                    <GridRow columns="16" className="workspace-submenu-row" >
-                        <GridColumn className="add-channels-menu" width="2" >
-                          <FaPlusSquare ></FaPlusSquare>
-                        </GridColumn>
-                        <GridColumn width="14">
-                            <span className="bold workspace-menu-text" id="add-channels-menu-txt">Add channels</span>
-                        </GridColumn>
-                    </GridRow>
+                   
                 </Grid>
             </GridColumn>
         )

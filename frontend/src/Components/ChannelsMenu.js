@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, GridRow, GridColumn, Accordion, List } from 'semantic-ui-react';
-import { FaChevronDown, FaHashtag } from 'react-icons/fa';
+import { FaChevronDown, FaHashtag, FaPlusSquare } from 'react-icons/fa';
 export default class ChannelsMenu extends Component {
     state = { activeIndex: 0 };
 
@@ -40,6 +40,13 @@ export default class ChannelsMenu extends Component {
                                         General2
                                     </List.Content>
                                 </List.Item>
+                                <List.Item className="workspace-submenu-row">
+                                    <List.Icon >       <FaPlusSquare ></FaPlusSquare></List.Icon>
+                                    <List.Content className="channel-title-menu">
+                                        Add channels
+                                    </List.Content>
+                                </List.Item>
+                                
                             </List>
                         </Accordion.Content>
                     </Accordion>
