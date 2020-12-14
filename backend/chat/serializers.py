@@ -9,6 +9,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         depth = 1
         fields = (
             'user', 
+            'channels',
         )
 
 class MessageSerializer(serializers.ModelSerializer):
