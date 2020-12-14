@@ -19,7 +19,7 @@ export default class WorkspaceName extends Component {
 
 
                         <Button circular className="new-message-btn">
-                            <BsPencilSquare color="black" size="1.10em"></BsPencilSquare>
+                            <BsPencilSquare color="#3F0E40" size="1.10em"></BsPencilSquare>
                         </Button>
 
                     </GridColumn>

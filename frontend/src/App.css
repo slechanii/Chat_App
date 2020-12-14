@@ -52,6 +52,18 @@ main{
     cursor: pointer;
 }
 
+.channel-title-menu{
+  padding-left: 3% !important;
+}
+
+.add-channels-menu{
+    padding-left: 8% !important;
+}
+
+#add-channels-menu-txt{
+    padding-left: 2% !important;
+}
+
 .workspace-menu{
     /* padding: 0 !important;  */
     background: #401C41 !important;
@@ -71,6 +83,47 @@ main{
 
 .testcol{
     /* margin-top: 1.25% !important;  */
+}
+.icon-col{
+    margin-top: 1% !important;
+}
+
+.collapsible-menu-list{
+    margin-left: 8% !important;     
+}
+
+.workspace-menu-row{
+    padding-bottom: 5% !important;
+    padding-top: 5% !important;
+    padding-left: 5% !important;
+}
+
+.workspace-menu-row:hover{
+    background: #361737;
+    cursor: pointer;
+}
+
+.workspace-submenu-row{
+    padding-bottom: 1.5% !important;
+    padding-top: 1.5% !important;
+    padding-left: 5% !important;
+}
+
+.workspace-submenu-row:hover{
+    background: #361737;
+    cursor: pointer;
+}
+
+
+.workspace-menu-text{
+    margin-left: 3% !important;
+    color: white;
+
+    /* margin: auto !important; */
+}
+
+.workspace-main-row{
+    margin-bottom: 7% !important;
 }
 
 .workspace-chat{
