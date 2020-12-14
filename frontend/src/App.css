@@ -57,7 +57,16 @@ main{
 }
 
 .add-channels-menu{
-    padding-left: 8% !important;
+    margin-left: 8% !important;
+}
+
+.menu-side-icon-container{
+    float: right !important;
+    padding-right: 5% !important;
+}
+
+.menu-side-icon{
+  
 }
 
 #add-channels-menu-txt{
@@ -81,9 +90,7 @@ main{
     /* padding-bottom: 10px !important; */
 }
 
-.testcol{
-    /* margin-top: 1.25% !important;  */
-}
+
 .icon-col{
     margin-top: 1% !important;
 }

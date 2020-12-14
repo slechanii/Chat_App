@@ -5,6 +5,7 @@ import { VscFiles } from 'react-icons/vsc';
 import { BsBookmark } from 'react-icons/bs';
 import ChannelsMenu from './ChannelsMenu';
 import { FaPlus, FaPlusSquare } from 'react-icons/fa';
+import MessagesMenu from './MessagesMenu';
 
 export default class WorkspaceMenu extends Component {
     render() {
@@ -41,7 +42,7 @@ export default class WorkspaceMenu extends Component {
 
                     {/* Channels list */}
                     <ChannelsMenu></ChannelsMenu>
-
+                    <MessagesMenu></MessagesMenu>
                    
                 </Grid>
             </GridColumn>
