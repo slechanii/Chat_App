@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Grid, GridRow, GridColumn, Form } from 'semantic-ui-react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
+import configData from  "../config.json";
 
 export default class Register extends Component {
 
@@ -19,7 +20,7 @@ export default class Register extends Component {
     }
 
     registerAccount = (username, password) => {
-        axios.post("http://127.0.0.1:8000/api/users/", { username: username, password: password })
+        axios.post(configData.SERVER_URL + "users/", { username: username, password: password })
             .then(res => {
                 localStorage.setItem("username", username)
                 this.setState({redirect:true})

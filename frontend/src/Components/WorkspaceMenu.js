@@ -6,9 +6,24 @@ import { BsBookmark } from 'react-icons/bs';
 import ChannelsMenu from './ChannelsMenu';
 import { FaPlus, FaPlusSquare } from 'react-icons/fa';
 import MessagesMenu from './MessagesMenu';
+import Chat from './Chat';
 
 export default class WorkspaceMenu extends Component {
+
+    state = {
+        refreshChat: false,
+    }
+
+    changeState = (name, value) => {
+        this.setState({[name]:value})
+    }
+
     render() {
+        if (this.state.refreshChat === true){
+            this.setState({refreshChat: false})
+            this.props.changeState("refreshChat", true)
+        }
+        
         return (
             <GridColumn className="workspace-menu" width={2}>
                 <Grid>
@@ -41,11 +56,15 @@ export default class WorkspaceMenu extends Component {
                     </GridRow>
 
                     {/* Channels list */}
-                    <ChannelsMenu></ChannelsMenu>
+                    <ChannelsMenu changeState={this.changeState} ></ChannelsMenu>
                     <MessagesMenu></MessagesMenu>
                    
                 </Grid>
+                <GridColumn width={14}> 
+                   {/* <Chat></Chat> */}
             </GridColumn>
+            </GridColumn>
+
         )
     }
 }

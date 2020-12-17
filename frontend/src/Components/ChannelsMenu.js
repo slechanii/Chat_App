@@ -3,24 +3,40 @@ import { Grid, GridRow, GridColumn, Accordion, List } from 'semantic-ui-react';
 import { FaChevronDown, FaHashtag, FaPlusSquare, FaPlus } from 'react-icons/fa';
 import axios from 'axios';
 import configData from  "../config.json";
+import { Redirect } from "react-router-dom";
+
 
 
 export default class ChannelsMenu extends Component {
+
+    constructor(props){
+        super(props)
+    }
+
     state = {
         activeIndex: 0,
         hover: false,
         channels: [],
         profile_id: null,
+        redirect: false,
+        channel_to_load: null,
     };
 
     getProfile = () => {
         axios.post(configData.SERVER_URL + "getProfile/", {"username": localStorage.getItem("username")})
         .then((result) => {
+            // alert(JSON.stringify(result))          
             // this.setState({channels: result.data})
             this.setState({profile_id: result.data})
             this.getChannels();
         })
         .catch((error) => {console.log(error)})
+    }
+
+    loadChannel = (channel_id) => {
+        const url = "/workspace/" + channel_id
+        this.setState({redirect: true})
+        this.setState({channel_to_load: url})
     }
 
     componentDidMount() {
@@ -34,7 +50,8 @@ export default class ChannelsMenu extends Component {
         axios.post(configData.SERVER_URL + "getChannels/", {"profile_id": this.state.profile_id})
         .then((result) => {
             this.setState({channels: result.data})
-            // alert(JSON.s)
+            // alert(JSON.stringify(result))
+            // localStorage.setItem("")
         })
         .catch((error) => {console.log(error)})
     }
@@ -44,6 +61,7 @@ export default class ChannelsMenu extends Component {
             this.setState({ hover: mouse_status })
 
     }
+    
 
     handleClick = (e, titleProps) => {
         const { index } = titleProps
@@ -55,9 +73,9 @@ export default class ChannelsMenu extends Component {
 
     render() {
         const { activeIndex } = this.state
-        const channels = this.state.channels.map(function(data, idx) {
+        const channels = this.state.channels.map((data, idx) => {            
             return (
-                <List.Item className="workspace-submenu-row">
+                <List.Item onClick={() => {this.loadChannel(data.id)}}  className="workspace-submenu-row">
                 <List.Icon > <FaHashtag></FaHashtag></List.Icon>
                 <List.Content  className="channel-title-menu">
                     {data.name}
@@ -66,11 +84,19 @@ export default class ChannelsMenu extends Component {
             </List.Item>
             )
         })
+
+        if (this.state.redirect === true){
+            this.setState({redirect: false})
+            this.setState({channel_to_load: null})
+            this.props.changeState("refreshChat", true)
+            return <Redirect to={this.state.channel_to_load} />
+        }
+
         return (
             <GridRow columns="16"  >
                 <GridColumn width="16">
                     <Accordion>
-                        <Accordion.Title onMouseEnter={() => { this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
+                        <Accordion.Title onMouseEnter={() => {this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
                             active={activeIndex === 0}
                             index={0}
                             onClick={this.handleClick}
@@ -87,7 +113,7 @@ export default class ChannelsMenu extends Component {
                         <Accordion.Content active={activeIndex === 0}>
                             <List className="collapsible-menu-list">
                               
-                               {channels}
+                               {channels }
                                 <List.Item className="workspace-submenu-row">
                                     <List.Icon >       <FaPlusSquare ></FaPlusSquare></List.Icon>
                                     <List.Content className="channel-title-menu">

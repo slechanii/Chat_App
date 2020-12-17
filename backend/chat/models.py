@@ -27,6 +27,6 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Message(models.Model):
     content = models.TextField()
-    sender = models.OneToOneField(Profile, on_delete=models.CASCADE)
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE)
     sent_date = models.DateTimeField(auto_now=True)
     destination = models.ForeignKey(Channel, on_delete=models.CASCADE)
