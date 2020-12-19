@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, GridRow, GridColumn } from 'semantic-ui-react';
+import { Grid, GridRow, GridColumn, Divider, Input } from 'semantic-ui-react';
 import configData from  "../config.json";
 import axios from 'axios';
 
@@ -31,7 +31,7 @@ export default class Chat extends Component {
         axios.get(url)
         .then((result) => {
             // alert(configData.SERVER_URL + "channels/", + url)
-            // alert(JSON.stringify(result.data.message_set))
+            // alert(JSON.stringify(result.data))
             this.setState({messages: result.data.message_set})
             this.setState({refresh:false})
         })
@@ -59,9 +59,29 @@ export default class Chat extends Component {
         
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
-            Chat
-            {messages}
-            {this.state.refresh}
+            <Grid className="h-100">
+                <Grid.Row className="chat-header">
+                Chat Header
+                <Divider></Divider>
+                </Grid.Row>
+         <Grid.Row className="chat-messages-container">
+         {messages}
+         {this.state.refresh}
+         </Grid.Row>
+         <Grid.Row className="chat-chatbox-container">
+            <Grid.Row>
+                input
+                <Input></Input>
+            </Grid.Row>
+            <GridRow>
+                formatting
+            </GridRow>
+         </Grid.Row>
+          
+         
+
+            </Grid>
+
             </GridColumn>
         )
     }

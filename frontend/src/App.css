@@ -26,8 +26,8 @@ main{
 }
 
 .workspace-second-row{
-    width: 100%;
-    height: 97%;
+    width: 100% !important;
+    height: 97% !important;
 }
 
 .bold{
@@ -133,9 +133,62 @@ main{
     margin-bottom: 7% !important;
 }
 
+
+
+/*
+    CHAT START
+*/
+
 .workspace-chat{
-    /* background: red !important; */
+    background: red !important;
+    height: 100% !important;
 }
+
+
+.chat-header {
+    background: cyan !important;
+    height: 6% !important;
+    padding: 0 !important;
+    margin: 0 !important;   
+
+}
+
+.chat-messages-container{
+    background: yellow;
+    height: 84% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+} 
+
+
+.chat-chatbox-container{
+    height: 10% !important;
+    background: green;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+
+/* 
+    CHAT END
+*/
+
+
 /*
     WORKSPACE END
 */
+
+
+/*
+    GLOBAL START
+*/
+
+.h-100{
+    height: 100% !important;
+}
+
+/* 
+    GLOBAL END
+*/
+
