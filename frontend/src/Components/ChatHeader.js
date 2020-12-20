@@ -22,15 +22,27 @@ export default class ChatHeader extends Component {
 
                 </Grid.Column>
                 <Grid.Column width="8" className="center-vertical">
-                    <Image className="profile-img-chat" src="https://ca.slack-edge.com/T01GTD2333N-U01GJ5P688M-gb0c7d943951-24" size="mini"></Image>
-                    <span>1</span>
-                    <Button icon labelPosition='left'>
-                        <FaPause></FaPause>
-                        Pause
+                    <div id="chat-header-menu-container">
+
+
+                        <button className="unstyled user-count-channel-btn">
+                            <div class="double-button-half-left">
+                                <img id="profile-img-chat" src="https://ca.slack-edge.com/T01GTD2333N-U01GJ5P688M-gb0c7d943951-24"></img>
+                            </div>
+                            <div className="double-button-half-right user-count-channel">
+                                <div className="double-button-count">
+                                    1</div>
+                            </div>
+                        </button>
+                        <Button icon labelPosition='left'>
+                            <FaPause></FaPause>
+                            Pause
     </Button>
-                    <Button content='Secondary' secondary />
+                        <Button content='Secondary' secondary />
+
+                    </div>
                 </Grid.Column>
-                <Divider></Divider>
+
             </Grid.Row>
         )
     }
