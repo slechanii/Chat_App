@@ -27,6 +27,21 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Message(models.Model):
     content = models.TextField()
-    sender = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    sender_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
     sent_date = models.DateTimeField(auto_now=True)
-    destination = models.ForeignKey(Channel, on_delete=models.CASCADE)
+    destination_id = models.ForeignKey(Channel, on_delete=models.CASCADE)
+    sender_name = models.CharField(max_length=128, default="")
+
+'''
+Creates / updates messages
+'''
+@receiver(post_save, sender=Message)
+def create_message(sender, instance, created, **kwargs):
+    if created:
+        profile_name = instance.sender_id.user.username
+        instance.sender_name = profile_name
+        instance.save()
+
+# @receiver(post_save, sender=Message)
+# def save_message(sender, instance, **kwargs):
+    # instance..save()

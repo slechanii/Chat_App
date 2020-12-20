@@ -3,6 +3,7 @@ import { Grid, GridRow, GridColumn, Divider, Input } from 'semantic-ui-react';
 import configData from "../config.json";
 import axios from 'axios';
 import ChatHeader from './ChatHeader.js';
+import MessageDisplay from './MessageDisplay.js';
 
 export default class Chat extends Component {
 
@@ -51,9 +52,11 @@ export default class Chat extends Component {
                     </ChatHeader>
                   
                     <Grid.Row className="chat-messages-container">
+                        <MessageDisplay messages={this.state.messages}>
 
-                        {messages}
-                        {this.state.refresh}
+                        </MessageDisplay>
+                        {/* {messages} */}
+                        {/* {this.state.refresh} */}
                     </Grid.Row>
                     <Grid.Row className="chat-chatbox-container">
                         <Grid.Row>

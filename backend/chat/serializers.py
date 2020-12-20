@@ -15,7 +15,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Message
-        fields = ("__all__")         
+        fields = ("id", "content", "sent_date", "sender_id", "destination_id", "sender_name")         
 
 
 class UserSerializer(serializers.ModelSerializer):
