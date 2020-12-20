@@ -2,6 +2,8 @@
     GLOBAL START
 */
 
+
+
 .floated-right {
     float: right !important;
 }
@@ -196,10 +198,10 @@ main{
 }
 
 .chat-messages-container{
-    background: yellow;
     height: 84% !important;
     padding: 0 !important;
     margin: 0 !important;
+    border-top: 1px solid rgba(var(--sk_foreground_low,29,28,29),.13) !important;
 } 
 
 

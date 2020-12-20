@@ -49,8 +49,9 @@ export default class Chat extends Component {
                     <ChatHeader>
 
                     </ChatHeader>
-                    <Divider></Divider>
+                  
                     <Grid.Row className="chat-messages-container">
+
                         {messages}
                         {this.state.refresh}
                     </Grid.Row>

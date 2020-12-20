@@ -49,7 +49,7 @@ export default class ChatHeader extends Component {
     </button>
                     </div>
                 </Grid.Column>
-
+                <Divider className="divider-horizontal" horizontal></Divider>
             </Grid.Row>
         )
     }
