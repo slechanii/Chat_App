@@ -237,13 +237,22 @@ main{
 
 .user-count-channel-btn{
     width: 48px !important;
-
 }
 
 #chat-header-menu-container
- {
-     float: right;
+ {   
+     height: 28px !important;
+     margin: 0 !important;
+     display: inline-flex !important;
+     padding-top: 5px !important;
+     float: right !important;
  }
+
+ #chat-header-menu-container > *
+ {   
+    margin-right: 15px !important;
+ }
+
 
 .user-count-channel{
     /* padding: 0 8px 10px 0px !important; */
@@ -270,18 +279,50 @@ main{
 
 .double-button-half-right{
     width: 50% !important;
-    height: 29px !important;
+    height: 28px !important;
     display: block !important;
     margin: 0 !important;
     padding:  0 !important;
     float: right !important;
 }
 
+#chat-add-btn:hover{
+    cursor: pointer !important;
+    background: #2570aa !important;
+}
+
+#chat-info-btn{
+    color: rgba(var(--sk_foreground_max,29,28,29),.7) !important;
+}
+
+#chat-info-btn:hover{
+    background: rgba(var(--sk_foreground_min,29,28,29),.04);
+    color: rgba(var(--sk_primary_foreground,29,28,29),1) !important;
+    cursor: pointer !important;
+}
+
+#chat-add-icon{
+    /* float: left !important; */
+    margin-left: 10px !important;
+}
+
+#chat-add-text{
+    /* float: right; */
+    margin-left: 3px !important;
+}
 
 
 .double-button-count{
     padding-top: 3px !important;
     padding-left: 8px !important;
+}
+
+#chat-add-btn{
+    background-color: rgba(var(--sk_highlight,18,100,163),1) !important;
+    color: white !important;
+    height: 27px !important;
+    width: 60px !important;
+    border-radius: 4px !important;
 }
 
 /* 

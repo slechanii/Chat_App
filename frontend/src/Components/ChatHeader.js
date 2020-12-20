@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Grid, Divider, Image, Button, Icon } from 'semantic-ui-react';
-import { FaPause } from 'react-icons/fa';
+import { FaPause, FaPlus } from 'react-icons/fa';
 import { BsStar } from 'react-icons/bs';
-
+import '../../node_modules/semantic-ui-css/semantic.min.css';
+import { VscInfo } from 'react-icons/vsc';
 export default class ChatHeader extends Component {
     render() {
         return (
@@ -34,12 +35,18 @@ export default class ChatHeader extends Component {
                                     1</div>
                             </div>
                         </button>
-                        <Button icon labelPosition='left'>
-                            <FaPause></FaPause>
-                            Pause
-    </Button>
-                        <Button content='Secondary' secondary />
+                        {/* <Button id="chat-add-btn">
+                        <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
+                           <span>Add</span>
+    </Button> */}
 
+    <button className="unstyled" id="chat-add-btn">
+        <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
+        <span id="chat-add-text">Add</span>
+    </button>
+    <button className="unstyled" id="chat-info-btn" >
+        <VscInfo size="2em"></VscInfo>
+    </button>
                     </div>
                 </Grid.Column>
 
