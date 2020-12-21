@@ -28,6 +28,7 @@ export default class ChannelsMenu extends Component {
             // alert(JSON.stringify(result))          
             // this.setState({channels: result.data})
             this.setState({profile_id: result.data})
+            localStorage.setItem("user_id", result.data)
             this.getChannels();
         })
         .catch((error) => {console.log(error)})

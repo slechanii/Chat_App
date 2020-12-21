@@ -51,7 +51,8 @@ export default class Chat extends Component {
                     <ChatHeader>
 
                     </ChatHeader>
-
+<div>
+</div>
                     <Grid.Row className="chat-messages-container">
                         <MessageDisplay messages={this.state.messages}>
 
@@ -60,7 +61,7 @@ export default class Chat extends Component {
                         {/* {this.state.refresh} */}
                     </Grid.Row>
                    
-                       <Chatbox></Chatbox>
+                       <Chatbox refreshMessages={this.getMessages}></Chatbox>
                     
                 </Grid>
 

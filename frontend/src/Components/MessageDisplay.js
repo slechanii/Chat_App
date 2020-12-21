@@ -50,25 +50,14 @@ export default class MessageDisplay extends Component {
 
     render() {
         let messages = this.props.messages.map((data, idx) => {
-            // alert(JSON.stringify(data)):/
             return (
-                <div className="rotate-180">
-                    <Message showUsername={true} date={data.sent_date}></Message>
-                     {/* <Message showUsername={false} date={data.sent_date}></Message> */}
-                     <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>
-                    <Message showUsername={false} date={data.sent_date}></Message>  
+                <div className="">
+                    <Message showUsername={true} date={data.sent_date} username={data.sender_name} message={data.content}></Message>
                 </div>
             )
         })
         return (
-            <Grid.Row className="message-display-container rotate-180">
+            <Grid.Row className="message-display-container">
                 <div className="">
                 {messages}
                 </div>

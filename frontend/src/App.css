@@ -3,6 +3,7 @@
 */
 
 
+
 .rotate-180{
     -moz-transform:rotate(180deg);
 -webkit-transform:rotate(180deg);
@@ -45,6 +46,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
 #root {
     height: 100vh;  
     overflow-y: hidden;  
+    overflow-x: hidden; 
 }
 
 main{
@@ -332,6 +334,7 @@ main{
     width: 100% !important;
     height: 100% !important;
     overflow-y: scroll !important;
+    overflow-x: hidden !important;
 
 }
 
@@ -341,13 +344,15 @@ main{
 
 .message-row{
     display: inline-block !important;
+    width: 100% !important;
     padding: 8px 10px !important;
     padding-left: 0px !important;
+    height: fit-content !important;
     
 }
 
 .message-row:hover{
-    background: rgb(241, 239, 239); 
+    background: rgb(247, 243, 243); 
 }
 
 .message-row:hover > .message-left-col > *{
@@ -362,8 +367,8 @@ main{
 }
 
 .message-right-col{
-    display: block !important;
-    float: right !important;
+    display: inline-block !important;
+    height: fit-content !important;
     width: calc(100% - 56px) !important;
     /* padding: 8px  8px 8px 16px !important; */
 }
@@ -446,6 +451,20 @@ main{
 .chatbox-button-group-2 {
     width: 50% !important;
     float: right !important;
+}
+
+#textarea-chat {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chat-message{
+    white-space: normal !important;
+    height: fit-content !important;
+    clear: both !important;
+    display: block !important;
+    overflow-x:  hidden !important;
+    word-wrap: break-word !important; 
 }
 
 /* 

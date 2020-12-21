@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Grid, Input, GridRow, Container, TextArea, Button, ButtonGroup, Icon } from 'semantic-ui-react'
+import Axios from 'axios';
+import configData from  "../config.json";
 
 export default class Chatbox extends Component {
 
@@ -10,7 +12,22 @@ export default class Chatbox extends Component {
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     sendMessage = () => {
-        alert(this.state.messageContent)
+   
+        let message_to_send = {
+       
+            content: this.state.messageContent,
+            sender_id: localStorage.getItem("user_id"),
+            destination_id: window.location.pathname.split('/')[2], 
+        }
+      Axios.post(configData.SERVER_URL + "messages/", message_to_send)
+           .then((res) => {
+               this.props.refreshMessages()
+               document.getElementById("textarea-chat").reset();
+               this.setState({messageContent:""})
+           })
+           .catch((err) => {
+               console.log(err)
+           })
     }
 
     render() {
@@ -18,7 +35,9 @@ export default class Chatbox extends Component {
             <Grid.Row className="chatbox-container">
                 <Grid className="chatbox">
                     <Grid.Row className="chatbox-textarea-row">
-                        <TextArea name="messageContent" onChange={this.handleChange} placeholder="Send a message to #channel" className="chatbox-input"></TextArea>
+                    <form className="unstyled" id="textarea-chat">
+                        <TextArea  name="messageContent" onChange={this.handleChange} placeholder="Send a message to #channel" className="chatbox-input"></TextArea>
+                    </form>
                     </Grid.Row>
                     <GridRow className="chatbox-formatting-row">
                         <Button.Group>
