@@ -437,6 +437,15 @@ main{
     /* background: blue !important; */
     padding: 0 !important;
     margin: 0 !important;
+    width: 100% !important;
+}
+
+.buttons{
+    width: 50% !important;
+}
+.chatbox-button-group-2 {
+    width: 50% !important;
+    float: right !important;
 }
 
 /* 
