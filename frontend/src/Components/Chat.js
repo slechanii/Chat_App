@@ -4,6 +4,7 @@ import configData from "../config.json";
 import axios from 'axios';
 import ChatHeader from './ChatHeader.js';
 import MessageDisplay from './MessageDisplay.js';
+import Chatbox from './Chatbox.js';
 
 export default class Chat extends Component {
 
@@ -50,7 +51,7 @@ export default class Chat extends Component {
                     <ChatHeader>
 
                     </ChatHeader>
-                  
+
                     <Grid.Row className="chat-messages-container">
                         <MessageDisplay messages={this.state.messages}>
 
@@ -58,18 +59,9 @@ export default class Chat extends Component {
                         {/* {messages} */}
                         {/* {this.state.refresh} */}
                     </Grid.Row>
-                    <Grid.Row className="chat-chatbox-container">
-                        <Grid.Row>
-                            input
-                <Input></Input>
-                        </Grid.Row>
-                        <GridRow>
-                            formatting
-            </GridRow>
-                    </Grid.Row>
-
-
-
+                   
+                       <Chatbox></Chatbox>
+                    
                 </Grid>
 
             </GridColumn>
