@@ -12,14 +12,15 @@ export default class Message extends Component {
 
 
     render() {
-
+        let local_date = new Date(this.props.date) 
+        let time = local_date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
         return (
 
             <div className="message-row">
 
                 <div className="message-left-col">
                     {this.props.showUsername === false &&
-                        <span className="chat-message-side-time">6:33</span>
+                        <span className="chat-message-side-time">{time}</span>
                     }
                     {this.props.showUsername === true &&
                         <img id="profile-img-chat-message" src="https://ca.slack-edge.com/T01GTD2333N-U01GJ5P688M-gb0c7d943951-48"></img>
@@ -34,7 +35,7 @@ export default class Message extends Component {
                                 {this.props.username}
                             </span>
                             <span className="chat-message-time">
-                                6:33 PM
+                                {time} 
                         </span>
                         </div>
                     }
