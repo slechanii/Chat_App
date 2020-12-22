@@ -4,13 +4,14 @@ import { FaPause, FaPlus } from 'react-icons/fa';
 import { BsStar } from 'react-icons/bs';
 import '../../node_modules/semantic-ui-css/semantic.min.css';
 import { VscInfo } from 'react-icons/vsc';
+
 export default class ChatHeader extends Component {
     render() {
         return (
             <Grid.Row columns="16" className="chat-header">
                 <Grid.Column width="8" className="center-vertical">
                     <Button id="channel-title-chat" className="unstyled text-btn">
-                        #title
+                        #{this.props.channelName}
                     </Button>
                     <Button id="star-channel-btn" className="unstyled text-btn">
                         <BsStar ></BsStar>
@@ -32,7 +33,8 @@ export default class ChatHeader extends Component {
                             </div>
                             <div className="double-button-half-right user-count-channel">
                                 <div className="double-button-count">
-                                    1</div>
+                                  {this.props.channelMembers.length}  
+                                </div>
                             </div>
                         </button>
                         {/* <Button id="chat-add-btn">
@@ -40,13 +42,13 @@ export default class ChatHeader extends Component {
                            <span>Add</span>
     </Button> */}
 
-    <button className="unstyled" id="chat-add-btn">
-        <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
-        <span id="chat-add-text">Add</span>
-    </button>
-    <button className="unstyled" id="chat-info-btn" >
-        <VscInfo size="2em"></VscInfo>
-    </button>
+                        <button className="unstyled" id="chat-add-btn">
+                            <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
+                            <span id="chat-add-text">Add</span>
+                        </button>
+                        <button className="unstyled" id="chat-info-btn" >
+                            <VscInfo size="2em"></VscInfo>
+                        </button>
                     </div>
                 </Grid.Column>
                 <Divider className="divider-horizontal" horizontal></Divider>
