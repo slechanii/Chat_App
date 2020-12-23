@@ -75,7 +75,7 @@ main{
     font-weight: bold;
 }
 
-*{
+* {
     padding: 0 !important;
     margin: 0 !important;
     font-family: Lato,appleLogo,sans-serif;
@@ -176,6 +176,21 @@ main{
 
 .workspace-main-row{
     margin-bottom: 7% !important;
+}
+
+.create-chan-header{
+padding: 2% !important;
+border: unset !important;
+}
+
+.create-chan-content{
+    padding: 2% !important;
+}
+
+.create-channel-modal{
+    height: 50% !important;
+    width: 25% !important;
+    border-radius: 10px !important;
 }
 
 

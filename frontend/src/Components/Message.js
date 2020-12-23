@@ -14,6 +14,7 @@ export default class Message extends Component {
     render() {
         let local_date = new Date(this.props.date) 
         let time = local_date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
+
         return (
 
             <div className="message-row">

@@ -62,7 +62,7 @@ export default class MessageDisplay extends Component {
     render() {
         /* Checking if current message username is the same as the previous one, changing display
            of message depending on it like on the official Slack. */
-        var old_username = "jdajzdjzajdjadjajd"//this.props.messages[0].sender_name
+        var old_username = "jdajzdjzajdjadjajd"
         let messages = this.props.messages.map((data, idx) => {
             var showUsername = false
             var current_username = this.props.messages[idx].sender_name
