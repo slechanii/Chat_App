@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Divider, Image, Button, Icon } from 'semantic-ui-react';
+import { Grid, Divider, Image, Button, Icon, Popup  } from 'semantic-ui-react';
 import { FaPause, FaPlus } from 'react-icons/fa';
 import { BsStar } from 'react-icons/bs';
 import '../../node_modules/semantic-ui-css/semantic.min.css';
@@ -25,8 +25,6 @@ export default class ChatHeader extends Component {
                 </Grid.Column>
                 <Grid.Column width="8" className="center-vertical">
                     <div id="chat-header-menu-container">
-
-
                         <button className="unstyled user-count-channel-btn">
                             <div class="double-button-half-left">
                                 <img id="profile-img-chat" src="https://ca.slack-edge.com/T01GTD2333N-U01GJ5P688M-gb0c7d943951-24"></img>
@@ -46,9 +44,16 @@ export default class ChatHeader extends Component {
                             <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                             <span id="chat-add-text">Add</span>
                         </button>
-                        <button className="unstyled" id="chat-info-btn" >
-                            <VscInfo size="2em"></VscInfo>
-                        </button>
+                        <Popup
+        trigger={
+            <button className="unstyled" id="chat-info-btn" >
+            <VscInfo size="2em"></VscInfo>
+        </button>
+        }
+        content={<Button color='green' content='Confirm the launch' />}
+        on='click'
+        position='top right'
+      />
                     </div>
                 </Grid.Column>
                 <Divider className="divider-horizontal" horizontal></Divider>

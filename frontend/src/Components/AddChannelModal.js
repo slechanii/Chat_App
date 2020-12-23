@@ -1,17 +1,45 @@
 import React, { Component } from 'react'
 import { Modal, List, Header, Image, Button, Form, Checkbox, Grid } from 'semantic-ui-react';
+import configData from  "../config.json";
+import Axios from 'axios';
 
 export default class AddChannelModal extends Component {
 
     state = {
-        open: false
+        open: false,
+        channel_name: "",
+        channel_desc: "",
     }
+
+
+    handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     setOpen = (open) => {
         this.setState({ open: open })
     }
 
+    createChannel = () => {
+        const req_body = {
+            name: this.state.channel_name,
+            description: this.state.channel_desc,
+            channel_member: [localStorage.getItem("user_id")],
+            channel_admin: [localStorage.getItem("user_id")],
+            topic: "-",            
+        }
+
+       Axios.post(configData.SERVER_URL + "channels/", req_body)
+            .then((res) => {
+                this.props.refreshChannels();
+                this.setState({open: false})
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+
+    }
+
     render() {
+        const { channel_name, channel_desc} = this.state 
         return (
 
 
@@ -31,12 +59,20 @@ export default class AddChannelModal extends Component {
 
                     <Form class="">
                         <Form.Field required>
-                            <label>Name</label>
-                            <input placeholder='#general ' />
+                        <Form.Input
+                                placeholder='#channel_name'
+                                name='channel_name'
+                                label="Name"
+                                onChange={this.handleChange}
+                            />
                         </Form.Field>
                         <Form.Field>
-                            <label>Description (Optional)</label>
-                            <input placeholder="What's this channel about ?" />
+                        <Form.Input
+                                placeholder="What's this channel about ?"
+                                name='channel_desc'
+                                label="Description (Optional)"
+                                onChange={this.handleChange}
+                            />
                         </Form.Field>
                         <Form.Field>
                             <Grid>
@@ -66,11 +102,9 @@ export default class AddChannelModal extends Component {
                     <Button onClick={() => this.setOpen(false)}>
                         Cancel
               </Button>
-                    <Button
-                        content="Create"
-                        onClick={() => this.setOpen(false)}
-                        positive
-                    />
+                <Button positive onClick={this.createChannel}>
+                    Create Channel
+                </Button>
                 </Modal.Actions>
             </Modal>
 

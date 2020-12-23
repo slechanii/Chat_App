@@ -121,7 +121,7 @@ export default class ChannelsMenu extends Component {
                                     <List.Icon >       <FaPlusSquare ></FaPlusSquare></List.Icon>
                                     
                                         {/* Add channels */}
-                                    <AddChannelModal></AddChannelModal>
+                                    <AddChannelModal refreshChannels={this.getChannels}></AddChannelModal>
                                 
 
                                 </List.Item>

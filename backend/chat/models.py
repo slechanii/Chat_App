@@ -5,11 +5,15 @@ from django.dispatch import receiver
 
 class Channel(models.Model):
     name = models.CharField(max_length=128)
+    description = models.CharField(max_length=128, default="")
+    topic = models.CharField(max_length=128, default="")
     
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     channels = models.ManyToManyField(Channel, related_name="channel_member")
+    channels_admin = models.ManyToManyField(Channel, related_name="channel_admin")
+    
 
 '''
 Creates / updates user profile
