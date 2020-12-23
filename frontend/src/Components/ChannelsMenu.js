@@ -96,7 +96,7 @@ export default class ChannelsMenu extends Component {
         }
 
         return (
-            <GridRow columns="16"  >
+            <GridRow className="nopadding-nomargin" columns="16"  >
                 <GridColumn width="16">
                     <Accordion>
                         <Accordion.Title onMouseEnter={() => { this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
