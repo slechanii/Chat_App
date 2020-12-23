@@ -22,6 +22,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
     float: right !important;
 }
 
+.secondary-text{
+    color: rgba(var(--sk_foreground_max,29,28,29),.7);
+}
+
 .h-100{
     height: 100% !important;
 }
@@ -228,13 +232,25 @@ main{
 }
 
 .create-chan-header{
-padding: 2% !important;
+/* padding: 2% !important; */
 border: unset !important;
+padding-bottom: 0 !important; 
+}
+
+.modal-desc{
+    padding: 2.5% 0% 2.5% 0 !important;
+}
+
+.create-channel-modal-btn-container{
+    float: right;
 }
 
 .create-chan-content{
-    padding: 2% !important;
+    /* padding-top: 0 !important; */
+    
 }
+
+
 
 .create-channel-modal{
     height: 50% !important;

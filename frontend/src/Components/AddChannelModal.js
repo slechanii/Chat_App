@@ -23,14 +23,14 @@ export default class AddChannelModal extends Component {
             >
                 <Modal.Header className="create-chan-header">Create a Channel</Modal.Header>
                 <Modal.Content className="create-chan-content">
-                    <Modal.Description>
-                        <p>
+                    <Modal.Description className="modal-desc">
+                        <p className="secondary-text">
                             Channels are where your team communicates. They’re best when organized around a topic — #marketing, for example.
                     </p>
                     </Modal.Description>
 
-                    <Form>
-                        <Form.Field>
+                    <Form class="">
+                        <Form.Field required>
                             <label>Name</label>
                             <input placeholder='#general ' />
                         </Form.Field>
@@ -42,34 +42,32 @@ export default class AddChannelModal extends Component {
                             <Grid>
                                 <Grid.Row columns="16">
                                     <Grid.Column width="13">
-                                        <Modal.Header>
+                                        <Modal.Header className="bold">
                                             Make private
                                     </Modal.Header>
                                         <Modal.Description>
-                                            <p>
+                                            <p className="secondary-text">
                                             When a channel is set to private, it can only be viewed or joined by invitation.
                                             </p>
                                  </Modal.Description>
 
                                     </Grid.Column>
-                                    <Grid.Column width="3">
-                                        <Checkbox toggle />
+                                    <Grid.Column verticalAlign="middle" width="3">
+                                        <Checkbox  toggle />
                                     </Grid.Column>
                                 </Grid.Row>
                             </Grid>
 
                         </Form.Field>
-                        <Button type='submit'>Submit</Button>
+
                     </Form>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button onClick={() => this.setOpen(false)}>
-                        Create
+                        Cancel
               </Button>
                     <Button
-                        content="Yep, that's me"
-                        labelPosition='right'
-                        icon='checkmark'
+                        content="Create"
                         onClick={() => this.setOpen(false)}
                         positive
                     />
