@@ -54,7 +54,7 @@ export default class Chat extends Component {
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
                 <Grid className="chat-grid">
-                    <ChatHeader channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} channelMembers={this.state.channel_members}>
+                    <ChatHeader channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
 
                     </ChatHeader>
                     <div>
