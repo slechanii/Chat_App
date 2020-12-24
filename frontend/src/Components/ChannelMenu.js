@@ -13,9 +13,8 @@ export default class ChannelMenu extends Component {
     }
 
     render() {
-        // alert(this.state.open)
         return (
-            <Popup
+            <Popup id="header-menu-popup"
                 trigger={<button className="unstyled" id="chat-info-btn" >
                     <VscInfo size="2em"></VscInfo>
                 </button>}
@@ -23,13 +22,14 @@ export default class ChannelMenu extends Component {
                 onClose={() => this.setOpen(false)}
                 onOpen={() => this.setOpen(true)}
                 open={this.state.open}
-                content={<Menu
+                position='bottom right'
+                content={<Menu className="menu-popup"
                     items={[
-                        { key: 'copy', content: 'Copy', icon: 'copy' },
-                        { key: 'code', content: 'View source code', icon: 'code' },
+                        { key: 'leave', content: 'Leave channel', icon: 'log out' },
+                        { key: 'delete', content: 'Delete channel', icon: 'delete' },
                     ]}
                     onItemClick={() => this.setOpen(false)}
-                    secondary
+                    // secondary
                     vertical
                 />}
                 on='click'

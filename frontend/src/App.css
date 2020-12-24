@@ -7,6 +7,15 @@
 }
 
 
+.menu-popup > .item:hover{
+    background: rgb(31, 147, 255) !important;
+    color: white !important;
+}
+
+
+
+
+
 
 
 .rotate-180{
@@ -55,6 +64,9 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
     WORKSPACE START
 */
 
+#header-menu-popup{
+    padding: 0 !important;
+}
  
 
 #root {

@@ -45,16 +45,6 @@ export default class ChatHeader extends Component {
                             <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                             <span id="chat-add-text">Add</span>
                         </button>
-                        {/* <Popup
-                            trigger={
-                                <button className="unstyled" id="chat-info-btn" >
-                                    <VscInfo size="2em"></VscInfo>
-                                </button>
-                            }
-                            content={<Button color='green' content='Confirm the launch' />}
-                            on='click'
-                            position='top right'
-                        /> */}
                         <ChannelMenu></ChannelMenu>
                     </div>
                 </Grid.Column>
