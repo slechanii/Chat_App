@@ -11,8 +11,9 @@ export default class Chat extends Component {
     state = {
         messages: [],
         refresh: false,
-        channel_name : "",
-        channel_members : [], 
+        channel_name: "",
+        channel_members: [],
+        channelId: 0,
     };
 
 
@@ -23,11 +24,12 @@ export default class Chat extends Component {
     getMessages = () => {
         let url = window.location.pathname
         url = url.split('/')[2]
+        this.setState({ channelId: parseInt(url) })
         url = configData.SERVER_URL + "channels/" + url + "/"
         axios.get(url)
             .then((result) => {
-                this.setState({channel_name: result.data.name})
-                this.setState({channel_members: result.data.channel_member})
+                this.setState({ channel_name: result.data.name })
+                this.setState({ channel_members: result.data.channel_member })
                 this.setState({ messages: result.data.message_set })
                 this.setState({ refresh: false })
             })
@@ -52,18 +54,18 @@ export default class Chat extends Component {
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
                 <Grid className="chat-grid">
-                    <ChatHeader channelName={this.state.channel_name} channelMembers={this.state.channel_members}>
+                    <ChatHeader channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} channelMembers={this.state.channel_members}>
 
                     </ChatHeader>
-<div>
-</div>
+                    <div>
+                    </div>
                     <Grid.Row className="chat-messages-container">
                         <MessageDisplay messages={this.state.messages}>
                         </MessageDisplay>
                     </Grid.Row>
-                   
-                       <Chatbox refreshMessages={this.getMessages}></Chatbox>
-                    
+
+                    <Chatbox refreshMessages={this.getMessages}></Chatbox>
+
                 </Grid>
 
             </GridColumn>

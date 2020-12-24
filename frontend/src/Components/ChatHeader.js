@@ -45,7 +45,7 @@ export default class ChatHeader extends Component {
                             <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                             <span id="chat-add-text">Add</span>
                         </button>
-                        <ChannelMenu></ChannelMenu>
+                        <ChannelMenu channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.props.channelId}></ChannelMenu>
                     </div>
                 </Grid.Column>
                 <Divider className="divider-horizontal" horizontal></Divider>

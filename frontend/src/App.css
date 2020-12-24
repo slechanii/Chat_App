@@ -8,8 +8,9 @@
 
 
 .menu-popup > .item:hover{
-    background: rgb(31, 147, 255) !important;
+    background: rgb(31, 102, 255) !important;
     color: white !important;
+    cursor: pointer;
 }
 
 

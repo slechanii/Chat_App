@@ -56,7 +56,7 @@ export default class WorkspaceMenu extends Component {
                     </GridRow>
 
                     {/* Channels list */}
-                    <ChannelsMenu changeState={this.changeState} ></ChannelsMenu>
+                    <ChannelsMenu channels={this.props.channels} refreshChannels={this.props.refreshChannels} changeState={this.changeState} ></ChannelsMenu>
                     <MessagesMenu></MessagesMenu>
                    
                 </Grid>
