@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Grid, Divider, Image, Button, Icon, Popup  } from 'semantic-ui-react';
+import { Grid, Divider, Image, Button, Icon, Popup } from 'semantic-ui-react';
 import { FaPause, FaPlus } from 'react-icons/fa';
 import { BsStar } from 'react-icons/bs';
 import '../../node_modules/semantic-ui-css/semantic.min.css';
 import { VscInfo } from 'react-icons/vsc';
+import ChannelMenu from './ChannelMenu';
 
 export default class ChatHeader extends Component {
     render() {
@@ -31,7 +32,7 @@ export default class ChatHeader extends Component {
                             </div>
                             <div className="double-button-half-right user-count-channel">
                                 <div className="double-button-count">
-                                  {this.props.channelMembers.length}  
+                                    {this.props.channelMembers.length}
                                 </div>
                             </div>
                         </button>
@@ -44,16 +45,17 @@ export default class ChatHeader extends Component {
                             <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                             <span id="chat-add-text">Add</span>
                         </button>
-                        <Popup
-        trigger={
-            <button className="unstyled" id="chat-info-btn" >
-            <VscInfo size="2em"></VscInfo>
-        </button>
-        }
-        content={<Button color='green' content='Confirm the launch' />}
-        on='click'
-        position='top right'
-      />
+                        {/* <Popup
+                            trigger={
+                                <button className="unstyled" id="chat-info-btn" >
+                                    <VscInfo size="2em"></VscInfo>
+                                </button>
+                            }
+                            content={<Button color='green' content='Confirm the launch' />}
+                            on='click'
+                            position='top right'
+                        /> */}
+                        <ChannelMenu></ChannelMenu>
                     </div>
                 </Grid.Column>
                 <Divider className="divider-horizontal" horizontal></Divider>
