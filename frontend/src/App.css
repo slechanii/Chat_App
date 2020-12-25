@@ -7,7 +7,20 @@
 }
 
 
+.no-padding{
+    padding: 0 !important;
+}
 
+.text-not-selectable{
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
+}
+
+.white{
+    color: white !important;  
+}
 
 .menu-popup > .item:hover{
     background: rgb(31, 102, 255) !important;
@@ -165,12 +178,21 @@ main{
     padding-right: 5% !important;
 }
 
+.dropdown{
+    margin-right: 1% !important;
+}
+
 .menu-side-icon{
   
 }
 
 #add-channels-menu-txt{
     padding-left: 2% !important;
+}
+
+.side-menu-item{
+    padding-top: 3px !important;
+    padding-bottom: 0px !important; 
 }
 
 .testcol{

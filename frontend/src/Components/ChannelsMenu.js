@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, GridRow, GridColumn, Accordion, List, Modal } from 'semantic-ui-react';
+import { Grid, GridRow, GridColumn, Accordion, List, Icon, } from 'semantic-ui-react';
 import { FaChevronDown, FaHashtag, FaPlusSquare, FaPlus } from 'react-icons/fa';
 import { Redirect } from "react-router-dom";
 import AddChannelModal from './AddChannelModal.js';
@@ -28,28 +28,11 @@ export default class ChannelsMenu extends Component {
         this.setState({ channel_to_load: url })
     }
 
-    componentDidMount() {
-        // this.getProfile();
-        // this.props.refreshChannels();
-    }
-    /*
-        Get subscribed channels / GET / params : profile_id         
-    */
-    // getChannels = () => {
-    //     axios.post(configData.SERVER_URL + "getChannels/", { "profile_id": this.state.profile_id })
-    //         .then((result) => {
-    //             this.setState({ channels: result.data })
-    //             alert("REFRESH CHANNELS")
-    //         })
-    //         .catch((error) => { console.log(error) })
-    // }
-
     handleHover = (mouse_status) => {
         if (mouse_status != this.state.hover)
             this.setState({ hover: mouse_status })
 
     }
-
 
     handleClick = (e, titleProps) => {
         const { index } = titleProps
@@ -81,7 +64,7 @@ export default class ChannelsMenu extends Component {
         }
 
         return (
-            <GridRow className="nopadding-nomargin" columns="16"  >
+            <GridRow className="side-menu-item" columns="16"  >
                 <GridColumn width="16">
                     <Accordion>
                         <Accordion.Title onMouseEnter={() => { this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
@@ -89,8 +72,8 @@ export default class ChannelsMenu extends Component {
                             index={0}
                             onClick={this.handleClick}
                         >
-                            <FaChevronDown color="white"></FaChevronDown>
-                            <span className="bold workspace-menu-text">Channels</span>
+                      <Icon color="white" name="dropdown"></Icon>
+                            <span className="white bold">Channels</span>
                             {/* Add Channel hover icon */}
                             {this.state.hover === true &&
                                 <span className="menu-side-icon-container">

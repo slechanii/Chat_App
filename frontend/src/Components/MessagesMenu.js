@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, GridRow, GridColumn, Accordion, List } from 'semantic-ui-react';
+import { Grid, GridRow, GridColumn, Accordion, List, Icon } from 'semantic-ui-react';
 import { FaChevronDown, FaHashtag, FaPlusSquare, FaUser, FaUserAlt, FaPlus } from 'react-icons/fa';
 export default class MessagesMenu extends Component {
     state = {
@@ -22,7 +22,7 @@ export default class MessagesMenu extends Component {
     render() {
         const { activeIndex } = this.state
         return (
-            <GridRow columns="16"  >
+            <GridRow className="side-menu-item" columns="16"  >
                 <GridColumn width="16">
                     <Accordion>
                         <Accordion.Title  onMouseEnter={() => {this.handleHover(true)}} onMouseLeave={() => {this.handleHover(false)}} className="workspace-submenu-row"
@@ -31,8 +31,8 @@ export default class MessagesMenu extends Component {
                             onClick={this.handleClick}
                            
                         >
-                            <FaChevronDown color="white"></FaChevronDown>
-                            <span className="bold workspace-menu-text">Direct messages</span>
+                                <Icon className="white" color="white" name="dropdown"></Icon>
+                            <span className="bold white">Direct messages</span>
 
                             {/* Start chat hover icon */}
                             { this.state.hover === true &&

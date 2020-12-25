@@ -26,31 +26,29 @@ export default class WorkspaceMenu extends Component {
         
         return (
             <GridColumn className="workspace-menu" width={2}>
-                <Grid >
+                <Grid className="text-not-selectable">
                     <GridRow className="workspace-main-row">
                         <GridColumn className="nopadding-nomargin"  >
-                            {/* <Divider className="workspace-menu-divider"></Divider> */}
                             <WorkspaceName title="Your Workspace"></WorkspaceName>
-                            {/* <Divider className="workspace-menu-divider"></Divider> */}
                         </GridColumn>
                     </GridRow>
 
                     {/* Drafts */}
-                    <GridRow  id="drafts-row" columns="16" className="workspace-submenu-row" >
+                    <GridRow  id="drafts-row" columns="16" className="side-menu-item" >
                         <GridColumn className="icon-col" width="1" >
                             <VscFiles></VscFiles>
                         </GridColumn>
-                        <GridColumn className="nopadding-nomargin" width="15">
+                        <GridColumn className="nopadding-nomargin" width="14">
                             <span className="bold workspace-menu-text">Drafts</span>
                         </GridColumn>
                     </GridRow>
 
                     {/* Saved Items */}
-                    <GridRow columns="16" className="workspace-submenu-row" >
+                    <GridRow columns="16" className="side-menu-item" >
                         <GridColumn className="icon-col" width="1" >
                             <BsBookmark></BsBookmark>
                         </GridColumn>
-                        <GridColumn className="nopadding-nomargin" width="15">
+                        <GridColumn className="nopadding-nomargin" width="14">
                             <span className="bold workspace-menu-text">Saved items</span>
                         </GridColumn>
                     </GridRow>
@@ -61,7 +59,6 @@ export default class WorkspaceMenu extends Component {
                    
                 </Grid>
                 <GridColumn width={14}> 
-                   {/* <Chat></Chat> */}
             </GridColumn>
             </GridColumn>
 
