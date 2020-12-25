@@ -7,7 +7,11 @@ import { VscInfo } from 'react-icons/vsc';
 import ChannelMenu from './ChannelMenu';
 
 export default class ChatHeader extends Component {
+
     render() {
+        let topic = this.props.channelTopic
+        if (topic === " ")
+            topic = "Add a topic"    
         return (
             <Grid.Row columns="16" className="chat-header">
                 <Grid.Column width="8" className="center-vertical">
@@ -19,7 +23,7 @@ export default class ChatHeader extends Component {
                     </Button>
                     <div>
                         <Button id="chat-channel-topic" className="unstyled">
-                            Add a topic
+                            {topic}
                         </Button>
                     </div>
 

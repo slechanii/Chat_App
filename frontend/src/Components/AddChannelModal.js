@@ -24,7 +24,7 @@ export default class AddChannelModal extends Component {
             description: this.state.channel_desc,
             channel_member: [localStorage.getItem("user_id")],
             channel_admin: [localStorage.getItem("user_id")],
-            topic: "-",            
+            // topic: " ",            
         }
 
        Axios.post(configData.SERVER_URL + "channels/", req_body)

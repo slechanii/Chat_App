@@ -12,6 +12,7 @@ export default class Chat extends Component {
         messages: [],
         refresh: false,
         channel_name: "",
+        topic: "",
         channel_members: [],
         channelId: 0,
     };
@@ -31,6 +32,7 @@ export default class Chat extends Component {
                 this.setState({ channel_name: result.data.name })
                 this.setState({ channel_members: result.data.channel_member })
                 this.setState({ messages: result.data.message_set })
+                this.setState({topic: result.data.topic})
                 this.setState({ refresh: false })
             })
             .catch((error) => { console.log(error) })
@@ -54,7 +56,7 @@ export default class Chat extends Component {
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
                 <Grid className="chat-grid">
-                    <ChatHeader channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
+                    <ChatHeader channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
 
                     </ChatHeader>
                     <div>

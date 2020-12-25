@@ -6,7 +6,7 @@ from django.dispatch import receiver
 class Channel(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=128, default="")
-    topic = models.CharField(max_length=128, default="")
+    topic = models.CharField(max_length=128, default=" ")
     
 
 class Profile(models.Model):
