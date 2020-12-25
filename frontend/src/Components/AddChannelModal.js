@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, List, Header, Image, Button, Form, Checkbox, Grid } from 'semantic-ui-react';
+import { Modal, List, Button, Form, Checkbox, Grid } from 'semantic-ui-react';
 import configData from  "../config.json";
 import Axios from 'axios';
 

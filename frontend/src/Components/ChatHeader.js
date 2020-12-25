@@ -5,13 +5,14 @@ import { BsStar } from 'react-icons/bs';
 import '../../node_modules/semantic-ui-css/semantic.min.css';
 import { VscInfo } from 'react-icons/vsc';
 import ChannelMenu from './ChannelMenu';
+import ChangeTopic from './ChangeTopic';
 
 export default class ChatHeader extends Component {
 
     render() {
         let topic = this.props.channelTopic
         if (topic === " ")
-            topic = "Add a topic"    
+            topic = "Add a topic"
         return (
             <Grid.Row columns="16" className="chat-header">
                 <Grid.Column width="8" className="center-vertical">
@@ -22,9 +23,7 @@ export default class ChatHeader extends Component {
                         <BsStar ></BsStar>
                     </Button>
                     <div>
-                        <Button id="chat-channel-topic" className="unstyled">
-                            {topic}
-                        </Button>
+                            <ChangeTopic channelId={this.props.channelId} refreshChannels={this.props.refreshMessages} topic={topic}></ChangeTopic>
                     </div>
 
                 </Grid.Column>
