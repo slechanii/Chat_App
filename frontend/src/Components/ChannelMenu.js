@@ -17,36 +17,63 @@ export default class ChannelMenu extends Component {
         this.setState({ open: open })
     }
 
-    pickNewChannelToLoad = () =>{
+    pickNewChannelToLoad = () => {
         let new_channel_id = this.props.channels[0]["id"];
         if (new_channel_id === this.props.channelId)
             new_channel_id = this.props.channels[1]["id"]
-        return (new_channel_id)    
+        return (new_channel_id)
+    }
+
+    removeUserFromList = () => {
+        let user_list = this.props.channelMembers
+        const user_id = parseInt(localStorage.getItem("user_id"))
+        // alert(user_id)
+        const index = user_list.indexOf(user_id)
+        alert(index)
+        if (index > -1){
+            user_list.splice(index, 1)
+            return (user_list)
+        }
+    }
+    
+    leaveChannel = () => {
+       
+        const req_data = {
+            channel_member: this.removeUserFromList(),
+        }
+        alert(JSON.stringify(req_data.channel_member))
+        this.setOpen(false);
+        Axios.patch(configData.SERVER_URL + "channels/" + this.props.channelId + "/", req_data)
+            .then((res) => {
+                this.props.refreshChannels()
+                this.setState({ redirect: true })
+                this.setState({ new_channel: this.pickNewChannelToLoad() })
+                this.setState({ redirect: true })
+            })
     }
 
     deleteChannel = () => {
-        this.setOpen(false);        
+        this.setOpen(false);
         Axios.delete(configData.SERVER_URL + "channels/" + this.props.channelId + "/")
-             .then((res) => {              
-                this.props.refreshChannels()   
-                this.setState({redirect:true})
-                this.setState({new_channel: this.pickNewChannelToLoad()})
-                this.setState({redirect:true})
-             })
+            .then((res) => {
+                this.props.refreshChannels()
+                this.setState({ redirect: true })
+                this.setState({ new_channel: this.pickNewChannelToLoad() })
+                this.setState({ redirect: true })
+            })
     }
 
     render() {
-
 
         if (this.state.redirect === true) {
             let channel_url = "/workspace/" + this.state.new_channel;
             this.setState({ redirect: false })
             this.setState({ new_channel: 0 })
             this.props.changeState("refreshChat", true)
-            return <Redirect to={channel_url}/>
+            return <Redirect to={channel_url} />
         }
         return (
-            
+
             <Popup id="header-menu-popup"
                 trigger={<button className="unstyled" id="chat-info-btn" >
                     <VscInfo size="2em"></VscInfo>
@@ -61,22 +88,22 @@ export default class ChannelMenu extends Component {
                     // secondary
                     vertical
                 >
-                <Menu.Item>
-                    Leave channel 
+                    <Menu.Item onClick={this.leaveChannel}>
+                        Leave channel
                     <Icon name="log out"></Icon>
-                </Menu.Item>
-                <Menu.Item onClick={this.deleteChannel}>
-                    Delete channel 
+                    </Menu.Item>
+                    <Menu.Item onClick={this.deleteChannel}>
+                        Delete channel
                     <Icon name="delete"></Icon>
-                </Menu.Item>
-                
+                    </Menu.Item>
+
                 </Menu>
-            
-            }
+
+                }
                 on='click'
             >
-            
-                
+
+
             </Popup>
         )
     }
