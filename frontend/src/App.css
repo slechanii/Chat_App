@@ -7,10 +7,22 @@
 }
 
 
+
+
 .menu-popup > .item:hover{
     background: rgb(31, 102, 255) !important;
     color: white !important;
     cursor: pointer;
+}
+
+.btn-link-txt{
+    color: rgba(var(--sk_highlight,18,100,163),1);
+    font-weight: bold;
+}
+
+.btn-link-txt:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 
@@ -352,6 +364,36 @@ padding-bottom: 0 !important;
     margin-right: 15px !important;
  }
 
+ .user-list{
+    margin-top: 6px !important;
+    margin-bottom: 10px !important;
+     padding-left: 20px !important;
+     padding-right: 20px !important;
+     padding-top: 5px !important;
+     padding-bottom: 5px !important;
+     
+ }
+ .add-people-modal-btn{
+    padding-left:  25px !important;
+    padding-right:  20px !important;
+}
+
+ .user-list-name{
+     font-weight: bold; 
+ }
+
+ .user-list-picture{
+     height: 36px !important;
+     width: 36px !important;
+     background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    border-radius: 4px;
+ }
+
+ .user-list-name-container{
+
+ }
 
 .user-count-channel{
     /* padding: 0 8px 10px 0px !important; */
@@ -497,6 +539,8 @@ padding-bottom: 0 !important;
     padding: 15px !important;
     margin: 0 !important;
 }
+
+
 
 .chatbox{
     

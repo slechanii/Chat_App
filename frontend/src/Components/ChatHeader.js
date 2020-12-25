@@ -7,8 +7,28 @@ import { VscInfo } from 'react-icons/vsc';
 import ChannelMenu from './ChannelMenu';
 import ChangeTopic from './ChangeTopic';
 import UserListModal from './UserListModal';
+import Axios from 'axios';
+import configData from "../config.json";
+
 
 export default class ChatHeader extends Component {
+
+    state = {
+        users_list: {},
+    }
+
+    componentWillMount () {
+        this.getUserList();
+    }
+
+    getUserList = () => {
+        Axios.post(configData.SERVER_URL + "getChannelMembers/", { channel_id: 22 })
+            .then((res) => {
+                this.setState({ users_list: res.data })
+                // alert(JSON.stringify(this.state.users_list))
+            })
+    }
+
 
     render() {
         let topic = this.props.channelTopic
@@ -32,7 +52,7 @@ export default class ChatHeader extends Component {
                     <div id="chat-header-menu-container">
 
                         {/* <div className="double-button-half-right user-count-channel"> */}
-                        <UserListModal  channelName={this.props.channelName} userList={this.props.channelMembers} />
+                        <UserListModal usersList={this.state.users_list} channelName={this.props.channelName} userList={this.props.channelMembers} />
                         {/* </div> */}
                         {/* </button> */}
                         {/* <Button id="chat-add-btn">

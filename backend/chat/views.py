@@ -28,9 +28,9 @@ params: channel_id
 """
 @api_view(["POST"])
 def getChannelMembers(request):
-    subscribed_users = models.Profile.objects.filter(channels__in=[22])
-    print(subscribed_users.values("id", "user"))
-    return Response("subscribed_users")
+    subscribed_users = models.Profile.objects.filter(channels__in=[request.data["channel_id"]])
+    users_list = subscribed_users.values("id", "username")
+    return Response(users_list)
 
 """
 Gives ids and names of all channels user is a part of 
