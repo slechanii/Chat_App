@@ -11,6 +11,7 @@ class Channel(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    username = models.CharField(default="John", max_length=24)
     channels = models.ManyToManyField(Channel, related_name="channel_member")
     channels_admin = models.ManyToManyField(Channel, related_name="channel_admin")
     
@@ -21,7 +22,8 @@ Creates / updates user profile
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(user=instance, username=instance.username)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

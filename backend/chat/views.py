@@ -23,6 +23,16 @@ class MessageViewSet(viewsets.ModelViewSet):
     queryset = models.Message.objects.all()    
 
 """
+Gives all members of a channel (id and username)
+params: channel_id
+"""
+@api_view(["POST"])
+def getChannelMembers(request):
+    subscribed_users = models.Profile.objects.filter(channels__in=[22])
+    print(subscribed_users.values("id", "user"))
+    return Response("subscribed_users")
+
+"""
 Gives ids and names of all channels user is a part of 
 params : profile_id
 """

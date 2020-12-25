@@ -6,6 +6,7 @@ import '../../node_modules/semantic-ui-css/semantic.min.css';
 import { VscInfo } from 'react-icons/vsc';
 import ChannelMenu from './ChannelMenu';
 import ChangeTopic from './ChangeTopic';
+import UserListModal from './UserListModal';
 
 export default class ChatHeader extends Component {
 
@@ -23,22 +24,17 @@ export default class ChatHeader extends Component {
                         <BsStar ></BsStar>
                     </Button>
                     <div>
-                            <ChangeTopic channelId={this.props.channelId} refreshChannels={this.props.refreshMessages} topic={topic}></ChangeTopic>
+                        <ChangeTopic channelId={this.props.channelId} refreshChannels={this.props.refreshMessages} topic={topic}></ChangeTopic>
                     </div>
 
                 </Grid.Column>
                 <Grid.Column width="8" className="center-vertical">
                     <div id="chat-header-menu-container">
-                        <button className="unstyled user-count-channel-btn">
-                            <div class="double-button-half-left">
-                                <img id="profile-img-chat" src="https://ca.slack-edge.com/T01GTD2333N-U01GJ5P688M-gb0c7d943951-24"></img>
-                            </div>
-                            <div className="double-button-half-right user-count-channel">
-                                <div className="double-button-count">
-                                    {this.props.channelMembers.length}
-                                </div>
-                            </div>
-                        </button>
+
+                        {/* <div className="double-button-half-right user-count-channel"> */}
+                        <UserListModal  channelName={this.props.channelName} userList={this.props.channelMembers} />
+                        {/* </div> */}
+                        {/* </button> */}
                         {/* <Button id="chat-add-btn">
                         <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                            <span>Add</span>
@@ -52,7 +48,7 @@ export default class ChatHeader extends Component {
                     </div>
                 </Grid.Column>
                 <Divider className="divider-horizontal" horizontal></Divider>
-            </Grid.Row>
+            </Grid.Row >
         )
     }
 }

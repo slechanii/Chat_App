@@ -36,8 +36,6 @@ export default class ChangeTopic extends Component {
     render() {
         const { channel_topic} = this.state 
         return (
-
-
             <Modal className=""
                 onClose={() => this.setOpen(false)}
                 onOpen={() => this.setOpen(true)}

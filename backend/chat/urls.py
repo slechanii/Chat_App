@@ -18,4 +18,5 @@ urlpatterns = [
     path('users/', views.UserList.as_view()), # create user with username + password
     path('getChannels/', views.UserChannels.as_view()),
     path('getProfile/', views.ProfileView.as_view()),
+    path('getChannelMembers/', views.getChannelMembers),
 ]

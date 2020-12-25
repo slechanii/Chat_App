@@ -27,9 +27,7 @@ export default class ChannelMenu extends Component {
     removeUserFromList = () => {
         let user_list = this.props.channelMembers
         const user_id = parseInt(localStorage.getItem("user_id"))
-        // alert(user_id)
         const index = user_list.indexOf(user_id)
-        alert(index)
         if (index > -1){
             user_list.splice(index, 1)
             return (user_list)
@@ -41,7 +39,6 @@ export default class ChannelMenu extends Component {
         const req_data = {
             channel_member: this.removeUserFromList(),
         }
-        alert(JSON.stringify(req_data.channel_member))
         this.setOpen(false);
         Axios.patch(configData.SERVER_URL + "channels/" + this.props.channelId + "/", req_data)
             .then((res) => {
