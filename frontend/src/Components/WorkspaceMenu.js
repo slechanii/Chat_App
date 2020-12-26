@@ -54,10 +54,10 @@ export default class WorkspaceMenu extends Component {
                     </GridRow>
 
                     {/* Starred Channels list */}
-                    <ChannelsMenu starChannels={true} channels={this.props.starredChannels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
+                    <ChannelsMenu title="Starred channels" starChannels={true} channels={this.props.starredChannels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
                     
                     {/* Standard Channels list */}
-                    <ChannelsMenu starChannels={false} channels={this.props.channels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
+                    <ChannelsMenu title="Channels" starChannels={false} channels={this.props.channels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
                     <MessagesMenu></MessagesMenu>
                    
                 </Grid>

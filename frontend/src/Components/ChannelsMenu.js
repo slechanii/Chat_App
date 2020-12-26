@@ -81,9 +81,9 @@ export default class ChannelsMenu extends Component {
                             onClick={this.handleClick}
                         >
                       <Icon color="white" name="dropdown"></Icon>
-                            <span className="white bold">Channels</span>
+                            <span className="white bold">{this.props.title}</span>
                             {/* Add Channel hover icon */}
-                            {this.state.hover === true &&
+                            {this.state.hover === true && this.props.starChannels != true &&
                                 <span className="menu-side-icon-container">
                                     <FaPlus className="menu-side-icon" color="white" size="0.9em"></FaPlus>
                                 </span>
@@ -93,14 +93,17 @@ export default class ChannelsMenu extends Component {
                             <List className="collapsible-menu-list">
 
                                 {channels}
+                                {this.props.starChannels != true &&
                                 <List.Item className="workspace-submenu-row">
                                     <List.Icon >       <FaPlusSquare ></FaPlusSquare></List.Icon>
                                     
                                         {/* Add channels */}
+                                        
                                     <AddChannelModal refreshChannels={this.props.refreshChannels}></AddChannelModal>
-                                
+                                      
 
                                 </List.Item>
+                                  }
                             </List>
                         </Accordion.Content>
                     </Accordion>

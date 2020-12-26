@@ -30,17 +30,13 @@ params : user_id, channel_id
 def starChannel(request):
     profile = models.Profile.objects.get(pk=request.data["profile_id"])
     channel = models.Channel.objects.get(pk=request.data["channel_id"]) 
-    # print()   
     starred_channels = profile.star_channels.all()
     if channel not in starred_channels:
         profile.star_channels.add(channel)
     else:
         profile.star_channels.remove(channel)
     profile.save()
-    
-    # subscribed_users = models.Profile.objects.filter(channels__in=[request.data["channel_id"]])
-    # users_list = subscribed_users.values("id", "username")
-    return Response("users_list")
+    return Response("OK")
 
 
 """
