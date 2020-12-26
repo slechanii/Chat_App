@@ -15,6 +15,7 @@ export default class Chat extends Component {
         topic: "",
         channel_members: [],
         channelId: 0,
+        channel_is_starred: false,
     };
 
 
@@ -26,6 +27,8 @@ export default class Chat extends Component {
         let url = window.location.pathname
         url = url.split('/')[2]
         this.setState({ channelId: parseInt(url) })
+        if (this.props.starredChannels.includes(parseInt(url)))
+            this.setState({channel_is_starred: true})
         url = configData.SERVER_URL + "channels/" + url + "/"
         axios.get(url)
             .then((result) => {
@@ -56,7 +59,7 @@ export default class Chat extends Component {
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
                 <Grid className="chat-grid">
-                    <ChatHeader channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
+                    <ChatHeader channelStarred={this.state.channel_is_starred} channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
 
                     </ChatHeader>
                     <div>

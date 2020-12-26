@@ -23,6 +23,27 @@ class MessageViewSet(viewsets.ModelViewSet):
     queryset = models.Message.objects.all()    
 
 """
+Stars / Unstar given channel in profile depending on current state
+params : user_id, channel_id
+"""
+@api_view(["POST"])
+def starChannel(request):
+    profile = models.Profile.objects.get(pk=request.data["profile_id"])
+    channel = models.Channel.objects.get(pk=request.data["channel_id"]) 
+    # print()   
+    starred_channels = profile.star_channels.all()
+    if channel not in starred_channels:
+        profile.star_channels.add(channel)
+    else:
+        profile.star_channels.remove(channel)
+    profile.save()
+    
+    # subscribed_users = models.Profile.objects.filter(channels__in=[request.data["channel_id"]])
+    # users_list = subscribed_users.values("id", "username")
+    return Response("users_list")
+
+
+"""
 Gives all members of a channel (id and username)
 params: channel_id
 """
@@ -59,7 +80,8 @@ class UserChannels(APIView):
 
     def post(self, request, format=None):
         subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.values("name", "id")
-        return Response(subscribed_channels)
+        starred_channels = models.Profile.objects.get(pk=request.data["profile_id"]).star_channels.values("name", "id")
+        return Response({"subscribed_channels": subscribed_channels, "starred_channels": starred_channels })
 
 
 class UserList(APIView):

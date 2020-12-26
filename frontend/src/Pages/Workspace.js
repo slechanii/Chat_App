@@ -11,6 +11,7 @@ export default class Workspace extends Component {
         refreshChat: false,
         profile_id: 0,
         channels : [],
+        starred_channels: [],
     }
 
     componentDidMount() {
@@ -40,7 +41,8 @@ export default class Workspace extends Component {
     getChannels = () => {
         axios.post(configData.SERVER_URL + "getChannels/", { "profile_id": this.state.profile_id })
             .then((result) => {
-                this.setState({ channels: result.data })
+                this.setState({ channels: result.data.subscribed_channels })
+                this.setState({ starred_channels: result.data.starred_channels})            
             })
             .catch((error) => { console.log(error) })
     }
@@ -57,8 +59,8 @@ export default class Workspace extends Component {
             </GridColumn>
                 </GridRow>
                 <GridRow className="workspace-second-row" columns={16}>
-                    <WorkspaceMenu  channels={this.state.channels} refreshChannels={this.getChannels} changeState={this.changeState}></WorkspaceMenu>
-                    <Chat channels={this.state.channels} refreshChannels={this.getChannels} refreshChat={this.state.refreshChat} changeState={this.changeState}></Chat>
+                    <WorkspaceMenu starredChannels={this.state.starred_channels} channels={this.state.channels} refreshChannels={this.getChannels} changeState={this.changeState}></WorkspaceMenu>
+                    <Chat starredChannels={this.state.starred_channels} channels={this.state.channels} refreshChannels={this.getChannels} refreshChat={this.state.refreshChat} changeState={this.changeState}></Chat>
                 </GridRow>
             </Grid>
         )

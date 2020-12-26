@@ -10,7 +10,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = (
             'user', 
             'channels',
-            'username'
+            'username',
+            'star_channels'
         )
 
 class MessageSerializer(serializers.ModelSerializer):

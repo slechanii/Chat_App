@@ -34,7 +34,7 @@ export default class WorkspaceMenu extends Component {
                     </GridRow>
 
                     {/* Drafts */}
-                    <GridRow  id="drafts-row" columns="16" className="side-menu-item" >
+                    <GridRow  id="drafts-row" columns="16" className="workspace-submenu-row side-menu-item" >
                         <GridColumn className="icon-col" width="1" >
                             <VscFiles></VscFiles>
                         </GridColumn>
@@ -44,7 +44,7 @@ export default class WorkspaceMenu extends Component {
                     </GridRow>
 
                     {/* Saved Items */}
-                    <GridRow columns="16" className="side-menu-item" >
+                    <GridRow columns="16" className="workspace-submenu-row side-menu-item" >
                         <GridColumn className="icon-col" width="1" >
                             <BsBookmark></BsBookmark>
                         </GridColumn>
@@ -53,8 +53,11 @@ export default class WorkspaceMenu extends Component {
                         </GridColumn>
                     </GridRow>
 
-                    {/* Channels list */}
-                    <ChannelsMenu channels={this.props.channels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
+                    {/* Starred Channels list */}
+                    <ChannelsMenu starChannels={true} channels={this.props.starredChannels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
+                    
+                    {/* Standard Channels list */}
+                    <ChannelsMenu starChannels={false} channels={this.props.channels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
                     <MessagesMenu></MessagesMenu>
                    
                 </Grid>

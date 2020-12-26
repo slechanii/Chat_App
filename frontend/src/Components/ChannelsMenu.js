@@ -20,6 +20,7 @@ export default class ChannelsMenu extends Component {
         profile_id: null,
         redirect: false,
         channel_to_load: null,
+        display_channels: false,
     };
 
     loadChannel = (channel_id) => {
@@ -43,6 +44,7 @@ export default class ChannelsMenu extends Component {
     }
 
     render() {
+        let display_channels = false
         const { activeIndex } = this.state
         const channels = this.props.channels.map((data, idx) => {
             return (
@@ -56,15 +58,21 @@ export default class ChannelsMenu extends Component {
         })
 
 
+
         if (this.state.redirect === true) {
             this.setState({ redirect: false })
             this.setState({ channel_to_load: null })
             this.props.changeState("refreshChat", true)
             return <Redirect to={this.state.channel_to_load} />
         }
+        if (this.props.channels.length > 0 || this.props.starChannels === false)
+            display_channels = true
 
         return (
+        
+       
             <GridRow className="side-menu-item" columns="16"  >
+                { display_channels ?
                 <GridColumn width="16">
                     <Accordion>
                         <Accordion.Title onMouseEnter={() => { this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
@@ -96,8 +104,12 @@ export default class ChannelsMenu extends Component {
                             </List>
                         </Accordion.Content>
                     </Accordion>
-                </GridColumn>
-            </GridRow>
+                </GridColumn> :
+                         <span></span>
+                        }
+            </GridRow> 
+   
+                        
         )
     }
 }
