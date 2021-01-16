@@ -34,8 +34,8 @@ export default class WorkspaceMenu extends Component {
                     </GridRow>
 
                     {/* Drafts */}
-                    <GridRow  id="drafts-row" columns="16" className="workspace-submenu-row side-menu-item" >
-                        <GridColumn className="icon-col" width="1" >
+                    <GridRow  id="drafts-row" columns="16" className="workspace-submenu-row side-menu-item no-padding" >
+                        <GridColumn className="no-padding icon-col" width="1" >
                             <VscFiles></VscFiles>
                         </GridColumn>
                         <GridColumn className="nopadding-nomargin" width="14">
@@ -45,7 +45,7 @@ export default class WorkspaceMenu extends Component {
 
                     {/* Saved Items */}
                     <GridRow columns="16" className="workspace-submenu-row side-menu-item" >
-                        <GridColumn className="icon-col" width="1" >
+                        <GridColumn className=" no-padding icon-col" width="1" >
                             <BsBookmark></BsBookmark>
                         </GridColumn>
                         <GridColumn className="nopadding-nomargin" width="14">
@@ -57,7 +57,7 @@ export default class WorkspaceMenu extends Component {
                     <ChannelsMenu title="Starred channels" starChannels={true} channels={this.props.starredChannels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
                     
                     {/* Standard Channels list */}
-                    <ChannelsMenu title="Channels" starChannels={false} channels={this.props.channels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
+                    <ChannelsMenu title="Channels" starChannels={false} channels={this.props.channels} starredChannels={this.props.starredChannels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
                     <MessagesMenu></MessagesMenu>
                    
                 </Grid>

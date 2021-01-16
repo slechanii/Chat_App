@@ -23,7 +23,7 @@ export default class MessagesMenu extends Component {
         const { activeIndex } = this.state
         return (
             <GridRow className="side-menu-item" columns="16"  >
-                <GridColumn width="16">
+                <GridColumn className="no-padding" width="16">
                     <Accordion>
                         <Accordion.Title  onMouseEnter={() => {this.handleHover(true)}} onMouseLeave={() => {this.handleHover(false)}} className="workspace-submenu-row"
                             active={activeIndex === 0}
@@ -43,26 +43,26 @@ export default class MessagesMenu extends Component {
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === 0}>
                             <List className="collapsible-menu-list">
-                                <List.Item className="workspace-submenu-row">
+                                <List.Item className="workspace-submenu-row-item">
                                     <List.Icon > <FaUserAlt></FaUserAlt></List.Icon>
                                     <List.Content className="channel-title-menu">
                                         <span>admin</span>
                                         <span>you</span>
                                     </List.Content>
                                 </List.Item>
-                                <List.Item className="workspace-submenu-row">
+                                <List.Item className="workspace-submenu-row-item">
                                     <List.Icon > <FaUserAlt></FaUserAlt></List.Icon>
                                     <List.Content className="channel-title-menu">
                                         <span>John</span>
                                     </List.Content>
                                 </List.Item>
-                                <List.Item className="workspace-submenu-row">
+                                <List.Item className="workspace-submenu-row-item">
                                     <List.Icon > <FaUserAlt></FaUserAlt></List.Icon>
                                     <List.Content className="channel-title-menu">
                                         <span>Jane</span>
                                     </List.Content>
                                 </List.Item>
-                                <List.Item className="workspace-submenu-row">
+                                <List.Item className="workspace-submenu-row-item">
                                     <List.Icon > <FaPlusSquare></FaPlusSquare></List.Icon>
                                     <List.Content className="channel-title-menu">
                                         Send direct message

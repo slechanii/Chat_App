@@ -47,14 +47,19 @@ export default class ChannelsMenu extends Component {
         let display_channels = false
         const { activeIndex } = this.state
         const channels = this.props.channels.map((data, idx) => {
-            return (
-                <List.Item onClick={() => { this.loadChannel(data.id) }} className="workspace-submenu-row">
-                    <List.Icon > <FaHashtag></FaHashtag></List.Icon>
-                    <List.Content className="channel-title-menu">
-                        {data.name}
-                    </List.Content>
-                </List.Item>
-            )
+            // Display channel if rendering fav list OR Display if rendering regular channels and channel isn't in fav list  
+            if (this.props.starChannels === true || (this.props.starChannels === false && this.props.starredChannels.find(function (el) { return el.id === data.id }) == undefined)) {
+                return (
+                    <List.Item onClick={() => { this.loadChannel(data.id) }} className="workspace-submenu-row-item">
+                        <List.Icon > <FaHashtag></FaHashtag></List.Icon>
+                        <List.Content className="channel-title-menu">
+                            {data.name}
+                        </List.Content>
+                    </List.Item>
+                )
+            }
+            else
+                return
         })
 
 
@@ -69,50 +74,50 @@ export default class ChannelsMenu extends Component {
             display_channels = true
 
         return (
-        
-       
+
+
             <GridRow className="side-menu-item" columns="16"  >
-                { display_channels ?
-                <GridColumn width="16">
-                    <Accordion>
-                        <Accordion.Title onMouseEnter={() => { this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
-                            active={activeIndex === 0}
-                            index={0}
-                            onClick={this.handleClick}
-                        >
-                      <Icon color="white" name="dropdown"></Icon>
-                            <span className="white bold">{this.props.title}</span>
-                            {/* Add Channel hover icon */}
-                            {this.state.hover === true && this.props.starChannels != true &&
-                                <span className="menu-side-icon-container">
-                                    <FaPlus className="menu-side-icon" color="white" size="0.9em"></FaPlus>
-                                </span>
-                            }
-                        </Accordion.Title>
-                        <Accordion.Content active={activeIndex === 0}>
-                            <List className="collapsible-menu-list">
+                {display_channels ?
+                    <GridColumn className="no-padding" width="16">
+                        <Accordion>
+                            <Accordion.Title onMouseEnter={() => { this.handleHover(true) }} onMouseLeave={() => { this.handleHover(false) }} className="workspace-submenu-row"
+                                active={activeIndex === 0}
+                                index={0}
+                                onClick={this.handleClick}
+                            >
+                                <Icon color="white" name="dropdown"></Icon>
+                                <span className="white bold">{this.props.title}</span>
+                                {/* Add Channel hover icon */}
+                                {this.state.hover === true && this.props.starChannels != true &&
+                                    <span className="menu-side-icon-container">
+                                        <FaPlus className="menu-side-icon" color="white" size="0.9em"></FaPlus>
+                                    </span>
+                                }
+                            </Accordion.Title>
+                            <Accordion.Content active={activeIndex === 0}>
+                                <List className="collapsible-menu-list">
 
-                                {channels}
-                                {this.props.starChannels != true &&
-                                <List.Item className="workspace-submenu-row">
-                                    <List.Icon >       <FaPlusSquare ></FaPlusSquare></List.Icon>
-                                    
-                                        {/* Add channels */}
-                                        
-                                    <AddChannelModal refreshChannels={this.props.refreshChannels}></AddChannelModal>
-                                      
+                                    {channels}
+                                    {this.props.starChannels != true &&
+                                        <List.Item className="workspace-submenu-row-item">
+                                            <List.Icon >       <FaPlusSquare ></FaPlusSquare></List.Icon>
 
-                                </List.Item>
-                                  }
-                            </List>
-                        </Accordion.Content>
-                    </Accordion>
-                </GridColumn> :
-                         <span></span>
-                        }
-            </GridRow> 
-   
-                        
+                                            {/* Add channels */}
+
+                                            <AddChannelModal refreshChannels={this.props.refreshChannels}></AddChannelModal>
+
+
+                                        </List.Item>
+                                    }
+                                </List>
+                            </Accordion.Content>
+                        </Accordion>
+                    </GridColumn> :
+                    <span></span>
+                }
+            </GridRow>
+
+
         )
     }
 }
