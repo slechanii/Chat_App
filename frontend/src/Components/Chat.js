@@ -4,9 +4,7 @@ import configData from "../config.json";
 import axios from 'axios';
 import ChatHeader from './ChatHeader.js';
 import MessageDisplay from './MessageDisplay.js';
-// import Chatbox from './Chatbox.js';
-import {Chatbox} from './Chatbox.js';
-
+import Chatbox from './Chatbox.js';
 export default class Chat extends Component {
 
     state = {
