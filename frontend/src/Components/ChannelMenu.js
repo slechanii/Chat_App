@@ -24,8 +24,8 @@ export default class ChannelMenu extends Component {
         return (new_channel_id)
     }
 
-    removeUserFromList = () => {
-        let user_list = this.props.channelMembers
+    removeUserFromList = (list) => {
+        let user_list = list
         const user_id = parseInt(localStorage.getItem("user_id"))
         const index = user_list.indexOf(user_id)
         if (index > -1){
@@ -37,16 +37,25 @@ export default class ChannelMenu extends Component {
     leaveChannel = () => {
        
         const req_data = {
-            channel_member: this.removeUserFromList(),
+            channel_member: this.removeUserFromList(this.props.channelMembers)
         }
         this.setOpen(false);
         Axios.patch(configData.SERVER_URL + "channels/" + this.props.channelId + "/", req_data)
-            .then((res) => {
-                this.props.refreshChannels()
+            .then((res) => {            
                 this.setState({ redirect: true })
                 this.setState({ new_channel: this.pickNewChannelToLoad() })
                 this.setState({ redirect: true })
             })
+            .catch((error) => {
+                console.log(error)
+            })
+        Axios.post(configData.SERVER_URL + "starChannel/", {profile_id: localStorage.getItem("user_id"), channel_id:this.props.channelId})
+            .then((result) => {
+                this.props.refreshChannels()
+             })    
+            .catch((err) => {
+                console.log(err)
+            })  
     }
 
     deleteChannel = () => {
