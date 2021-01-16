@@ -169,6 +169,10 @@ main{
     padding-left: 2px !important;
 }
 
+.active-item{
+    background: #1164A3 !important;
+}
+
 .add-channels-menu{
     margin-left: 8% !important;
 }
@@ -237,6 +241,8 @@ main{
 
 .workspace-submenu-row-item{
     padding-left: 12% !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
 }
 
 .workspace-submenu-row-item:hover{

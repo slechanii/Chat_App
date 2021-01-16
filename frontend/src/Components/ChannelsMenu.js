@@ -29,6 +29,12 @@ export default class ChannelsMenu extends Component {
         this.setState({ channel_to_load: url })
     }
 
+    getActiveChannel = () => {
+        let url = window.location.pathname
+        url = url.split('/')[2]
+        return (parseInt(url))
+    }
+
     handleHover = (mouse_status) => {
         if (mouse_status != this.state.hover)
             this.setState({ hover: mouse_status })
@@ -47,10 +53,15 @@ export default class ChannelsMenu extends Component {
         let display_channels = false
         const { activeIndex } = this.state
         const channels = this.props.channels.map((data, idx) => {
+            var active_channel = false
+            if (data.id === this.getActiveChannel()) {
+                active_channel = true
+            }
             // Display channel if rendering fav list OR Display if rendering regular channels and channel isn't in fav list  
             if (this.props.starChannels === true || (this.props.starChannels === false && this.props.starredChannels.find(function (el) { return el.id === data.id }) == undefined)) {
                 return (
-                    <List.Item onClick={() => { this.loadChannel(data.id) }} className="workspace-submenu-row-item">
+  
+                    <List.Item onClick={() => { this.loadChannel(data.id) }} className={`workspace-submenu-row-item ${active_channel ? "active-item" : ""}`} >
                         <List.Icon > <FaHashtag></FaHashtag></List.Icon>
                         <List.Content className="channel-title-menu">
                             {data.name}
