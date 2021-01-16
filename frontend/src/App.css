@@ -366,13 +366,14 @@ padding-bottom: 0 !important;
 .ql-container{
     border: 1px solid black !important;
     border-radius: 3px !important;
+    height: 110px !important;
 }
 
 .ql-toolbar {
     position: absolute;
     bottom: 0;
     width: 98.2%;
-    transform: translateY(135%);
+    transform: translateY(137%);
     border: 1px solid black !important;
     border-top: unset !important;
     background: rgb(240, 238, 238) !important;

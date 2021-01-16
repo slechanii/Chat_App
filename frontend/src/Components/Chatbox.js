@@ -4,21 +4,49 @@ import React, { Component } from 'react'
 import { Grid, Input, GridRow, Container, TextArea, Button, ButtonGroup, Icon } from 'semantic-ui-react'
 import Axios from 'axios';
 import configData from  "../config.json";
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import ReactQuill, {Quill} from 'react-quill';
 
 
 
 export default class Chatbox extends Component {
 
+    constructor(props)
+    {
+        super(props);
+        this.quillRef = null;      // Quill instance
+        this.reactQuillRef = null; // ReactQuill component
+    }
     state = {
         messageContent : "",       
         value: "",
     }
 
 
+    componentDidMount() {
+        this.attachQuillRefs()
+        
+      }
+    
+      componentDidUpdate() {
+        this.attachQuillRefs()
+      }
+    
+      attachQuillRefs = () => {
+        if (typeof this.reactQuillRef.getEditor !== 'function') return;
+        this.quillRef = this.reactQuillRef.getEditor();
+      }
+
     onChangeMessage = (html) => {
         this.setState({messageContent: html})
+        this.quillRef.focus();
+    }
+
+    handleKey = (event) => {
+        if (event.key == "Enter" && !event.shiftKey)
+        {
+            this.sendMessage()
+        }
     }
 
     sendMessage = () => {
@@ -41,11 +69,26 @@ export default class Chatbox extends Component {
 
     render() {
         const {value, setValue} = this.state
+        const quillToolbar = {
+            toolbar: ["bold", "italic", "strike", "underline", "blockquote", { list: "bullet" }, {'list': 'ordered'}, "link"],
+            keyboard: {
+                bindings: {
+                //   linebreak: {
+                //     key: 13,                   
+                //     handler: (range) => {
+                //     // alert("enter pressed")
+                //     this.sendMessage();
+                
+                //     }
+                // }
+            }
+        }
+          };
         return (
             
             <Grid.Row className="chatbox-container">
                   
-              <ReactQuill className="chatbox-wrapper" theme="snow" onChange={this.onChangeMessage} >
+              <ReactQuill onKeyDown={(e) => {this.handleKey(e)}}  ref={(el) => { this.reactQuillRef = el }} className="chatbox-wrapper" modules={quillToolbar} theme="snow" onChange={this.onChangeMessage} >
               {/* <div className="chatbox-input"/> */}
               </ReactQuill> 
   
