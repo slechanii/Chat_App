@@ -57,4 +57,4 @@ class ChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Channel
         # messages = MessageSerializer(many=True)    
-        fields = ("id", 'name', 'channel_member', 'message_set', 'topic', 'description', 'channel_admin' )
+        fields = ("id", 'name', 'channel_member', 'message_set', 'topic', 'description', 'channel_admin', 'star_channels' )

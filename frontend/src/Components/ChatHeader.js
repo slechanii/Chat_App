@@ -19,14 +19,32 @@ export default class ChatHeader extends Component {
 
     componentWillMount () {
         this.getUserList();
+        
     }
 
     getUserList = () => {
         Axios.post(configData.SERVER_URL + "getChannelMembers/", { channel_id: 22 })
             .then((res) => {
                 this.setState({ users_list: res.data })
-                // alert(JSON.stringify(this.state.users_list))
             })
+    }
+
+    starChannel = () => {
+        const req_body = {
+            profile_id: localStorage.getItem("user_id"),
+            channel_id: this.props.channelId,
+        }
+
+
+        Axios.post(configData.SERVER_URL + "starChannel/", req_body)
+             .then((res) => {
+                this.props.refreshChannels()
+                this.props.refreshMessages()
+                this.props.checkStarredChannel()
+             })
+             .catch((err) =>{
+                 console.log(err)
+             })
     }
 
 
@@ -40,8 +58,12 @@ export default class ChatHeader extends Component {
                     <Button id="channel-title-chat" className="unstyled text-btn">
                         #{this.props.channelName}
                     </Button>
-                    <Button id="star-channel-btn" className="unstyled text-btn">
-                        <BsStar ></BsStar>
+                    <Button id="star-channel-btn" onClick={this.starChannel} className="unstyled text-btn">
+                        {this.props.channelStarred  ?
+                        <Icon name="star" color="yellow"></Icon>
+                        :
+                        <Icon name="star" className="not-fav-star"></Icon>                            
+                    }
                     </Button>
                     <div>
                         <ChangeTopic channelId={this.props.channelId} refreshChannels={this.props.refreshMessages} topic={topic}></ChangeTopic>

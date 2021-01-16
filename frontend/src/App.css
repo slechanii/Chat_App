@@ -186,6 +186,15 @@ main{
   
 }
 
+.not-fav-star{
+    color: rgb(173, 171, 171) !important;
+}
+
+.not-fav-star:hover{
+    color:rgb(223, 208, 1) !important;
+}
+
+
 #add-channels-menu-txt{
     padding-left: 2% !important;
 }

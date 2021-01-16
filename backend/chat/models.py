@@ -14,7 +14,7 @@ class Profile(models.Model):
     username = models.CharField(default="John", max_length=24)
     channels = models.ManyToManyField(Channel, related_name="channel_member")
     channels_admin = models.ManyToManyField(Channel, related_name="channel_admin")
-    star_channels = models.ManyToManyField(Channel, related_name="star_channels")
+    star_channels = models.ManyToManyField(Channel, blank=True, related_name="star_channels")
 
 '''
 Creates / updates user profile
