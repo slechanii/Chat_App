@@ -41,7 +41,8 @@ export default class Message extends Component {
                         </div>
                     }
                     <p className="chat-message">
-                        {this.props.message}
+                        {/* {this.props.message} */}
+                        <span dangerouslySetInnerHTML={{ __html: this.props.message }}></span>
                     </p>
                 </div>
             </div>

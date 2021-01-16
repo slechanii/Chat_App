@@ -14,53 +14,55 @@ export default class Chatbox extends Component {
     constructor(props)
     {
         super(props);
-        this.quillRef = null;      // Quill instance
-        this.reactQuillRef = null; // ReactQuill component
     }
     state = {
         messageContent : "",       
+        oldValue: "",
         value: "",
     }
 
 
-    componentDidMount() {
-        this.attachQuillRefs()
-        
-      }
-    
-      componentDidUpdate() {
-        this.attachQuillRefs()
-      }
-    
-      attachQuillRefs = () => {
-        if (typeof this.reactQuillRef.getEditor !== 'function') return;
-        this.quillRef = this.reactQuillRef.getEditor();
-      }
 
     onChangeMessage = (html) => {
-        this.setState({messageContent: html})
-        this.quillRef.focus();
+        // this.setState({oldValue: this.state.messageContent})
+        this.setState({oldValue: this.state.messageContent, messageContent: html})
+        
+        // this.quillRef.focus();
     }
 
     handleKey = (event) => {
         if (event.key == "Enter" && !event.shiftKey)
-        {
+        {            
+            this.setState({messageContent: ""})
+            event.preventDefault();
             this.sendMessage()
+            // let myEditor = this.reactQuillRef.getEditor();
+            // alert(myEditor.history.undo());          
+            event.stopPropagation();
+            return false
         }
+    }
+
+    cleanMessage = (message) => {
+        // message = message.replace(/<p>/g, "")
+        message = message.replace(/<p><\/\p>/g, "")
+        message = message.replace(/<p><br><\/p>/g, "")
+        message = message.replace(/<br>/g, "")
+        return message
     }
 
     sendMessage = () => {
    
         let message_to_send = {       
-            content: this.state.messageContent,
+            content: this.cleanMessage(this.state.oldValue),
             sender_id: localStorage.getItem("user_id"),
             destination_id: window.location.pathname.split('/')[2], 
         }
       Axios.post(configData.SERVER_URL + "messages/", message_to_send)
            .then((res) => {
                this.props.refreshMessages()
-               document.getElementById("textarea-chat").reset();
                this.setState({messageContent:""})
+               this.setState({oldValue:""})
            })
            .catch((err) => {
                console.log(err)
@@ -70,25 +72,22 @@ export default class Chatbox extends Component {
     render() {
         const {value, setValue} = this.state
         const quillToolbar = {
+            history: {
+                delay: 1000,
+                maxStack: 100,
+                userOnly: false
+              },
             toolbar: ["bold", "italic", "strike", "underline", "blockquote", { list: "bullet" }, {'list': 'ordered'}, "link"],
-            keyboard: {
-                bindings: {
-                //   linebreak: {
-                //     key: 13,                   
-                //     handler: (range) => {
-                //     // alert("enter pressed")
-                //     this.sendMessage();
-                
-                //     }
-                // }
-            }
-        }
+            clipboard: {
+                matchVisual: false
+            },
+   
           };
         return (
             
             <Grid.Row className="chatbox-container">
                   
-              <ReactQuill onKeyDown={(e) => {this.handleKey(e)}}  ref={(el) => { this.reactQuillRef = el }} className="chatbox-wrapper" modules={quillToolbar} theme="snow" onChange={this.onChangeMessage} >
+              <ReactQuill value={this.state.messageContent} onKeyDown={(e) => {this.handleKey(e)}}  ref={(el) => {this.reactQuillRef = el}} className="chatbox-wrapper" modules={quillToolbar} theme="snow" onChange={this.onChangeMessage} >
               {/* <div className="chatbox-input"/> */}
               </ReactQuill> 
   
