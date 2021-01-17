@@ -416,8 +416,20 @@ padding-bottom: 0 !important;
     /* position: relative; */
     border: gray 1px solid;
     margin: 0 auto !important;
-    width: 160px !important;
+    /* width: 160px !important; */
 
+  }
+  .yesterday-date{
+    width: 120px; 
+ }
+
+ .other-date{
+    width: 160px; 
+ }
+
+
+  .today-date{
+     width: 100px; 
   }
 
   date-separator-date{
