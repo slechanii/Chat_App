@@ -9,7 +9,28 @@ import ReactQuill, {Quill} from 'react-quill';
 
 
 const CustomButton = () => <Icon name="send"></Icon>
-const CustomToolbar = () => (
+// const CustomToolbar = () => (
+//     <div id="toolbar">
+//       {/* "bold", "italic", "strike", "underline", "blockquote", { list: "bullet" }, {'list': 'ordered'}, "link", {insertStar: this.insertStar} */}
+//       <button className="ql-bold"></button>
+//       <button className="ql-italic"></button>
+//       <button className="ql-strike"></button>    
+//       <button className="ql-underline"></button>    
+//       <button className="ql-blockquote"></button>        
+//       <button className="ql-send-message" onClick={this.props.sendMessage}>
+//         <CustomButton />
+//       </button>
+//     </div>
+//   )
+
+  class CustomToolbar extends Component { 
+
+    constructor(props){
+        super(props)
+    }
+      render() {
+          
+        return(
     <div id="toolbar">
       {/* "bold", "italic", "strike", "underline", "blockquote", { list: "bullet" }, {'list': 'ordered'}, "link", {insertStar: this.insertStar} */}
       <button className="ql-bold"></button>
@@ -17,11 +38,13 @@ const CustomToolbar = () => (
       <button className="ql-strike"></button>    
       <button className="ql-underline"></button>    
       <button className="ql-blockquote"></button>        
-      <button className="ql-send-message">
+      <button className="ql-send-message" onClick={() => {this.props.sendMessage(false)}}>
         <CustomButton />
       </button>
     </div>
   )
+      }
+  }
 
   function insertStar()  {
     alert("star")
@@ -50,7 +73,7 @@ export default class Chatbox extends Component {
         {            
             this.setState({messageContent: ""})
             event.preventDefault();
-            this.sendMessage()
+            this.sendMessage(true)
             event.stopPropagation();
             return false
         }
@@ -63,10 +86,15 @@ export default class Chatbox extends Component {
         return message
     }
 
-    sendMessage = () => {
+    sendMessage = (from_enter_key) => {
    
+        let message = ""
+        if (from_enter_key)
+            message = this.state.oldValue
+        else
+            message = this.state.messageContent
         let message_to_send = {       
-            content: this.cleanMessage(this.state.oldValue),
+            content:  this.cleanMessage(message),
             sender_id: localStorage.getItem("user_id"),
             destination_id: window.location.pathname.split('/')[2], 
         }
@@ -108,7 +136,7 @@ export default class Chatbox extends Component {
             <ReactQuill key={this.props.channelName} placeholder={"Write a message to #" + this.props.channelName} value={this.state.messageContent} onKeyDown={(e) => {this.handleKey(e)}}  ref={(el) => {this.reactQuillRef = el}} className="chatbox-wrapper" modules={Chatbox.modules} theme="snow" onChange={this.onChangeMessage} >
               {/* <div className="chatbox-input"/> */}
               </ReactQuill> 
-              <CustomToolbar></CustomToolbar>
+              <CustomToolbar sendMessage={this.sendMessage}></CustomToolbar>
   
                 {/* <Grid className="chatbox">
                     <Grid.Row className="chatbox-textarea-row">
