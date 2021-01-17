@@ -6,6 +6,13 @@
     margin: 0 !important;
 }
 
+blockquote{
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px;
+}
+
 
 .no-padding{
     padding: 0 !important;
@@ -377,6 +384,10 @@ padding-bottom: 0 !important;
     border: 1px solid black !important;
     border-top: unset !important;
     background: rgb(240, 238, 238) !important;
+  }
+
+  .ql-send-message{
+    color: #06c;
   }
   
 

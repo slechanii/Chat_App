@@ -74,6 +74,7 @@ export default class Chat extends Component {
                 </div>
             )
         })
+        // alert("name : " + this.state.channel_name)
 
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
@@ -88,7 +89,7 @@ export default class Chat extends Component {
                         </MessageDisplay>
                     </Grid.Row>
 
-                    <Chatbox refreshMessages={this.getMessages}></Chatbox>
+                    <Chatbox channelName={this.state.channel_name} refreshMessages={this.getMessages}></Chatbox>
 
                 </Grid>
 
