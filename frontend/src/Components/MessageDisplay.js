@@ -60,6 +60,7 @@ export default class MessageDisplay extends Component {
     };
 
     getDateToDisplay = (date) => {
+        if (date){
         let yesterday = new Date();
         yesterday.setDate(new Date().getDate() - 1)
         if (new Date().toDateString() === date.toDateString())
@@ -68,6 +69,8 @@ export default class MessageDisplay extends Component {
             return ("Yesterday")    
         else     
             return dateFormat(date, "mmmm dS yyyy")
+        }
+        return ("error")
     }
 
 
@@ -75,19 +78,29 @@ export default class MessageDisplay extends Component {
         /* Checking if current message username is the same as the previous one, changing display
            of message depending on it like on the official Slack. */
         var old_username = "jdajzdjzajdjadjajd"
+        var old_date = "djzakdjad"
         let messages = this.props.messages.map((data, idx) => {
             var showUsername = false
+            var showDate = false
+            var local_date_str = this.getDateToDisplay(new Date(data.sent_date))
+            // var current_date = this.getDateToDisplay(new Date(data.sender_date))
+            // alert("current  : " + current_date + " / OLD => " + old_date)
+            if (local_date_str != old_date)
+                showDate = true
+            old_date = local_date_str    
             var current_username = this.props.messages[idx].sender_name
             if (current_username != old_username)
                 showUsername = true
             old_username = current_username  
-            var local_date_str = this.getDateToDisplay(new Date(data.sent_date))
+           
                         // let date = local_date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
     
             return (
                 <div className="">
                     <Message showUsername={showUsername} date={data.sent_date} username={data.sender_name} message={data.content}></Message>
-                    <DateSeparator date={local_date_str}></DateSeparator>
+                    { showDate === true ?  <DateSeparator date={local_date_str}></DateSeparator>
+                    : null}
+                   
                 </div>
             )
         })
