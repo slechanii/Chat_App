@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Message from './Message';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Divider } from 'semantic-ui-react';
 import jquery from 'jquery';
+import DateSeparator from './DateSeparator';
 
 export default class MessageDisplay extends Component {
     constructor(props) {
@@ -72,6 +73,7 @@ export default class MessageDisplay extends Component {
             return (
                 <div className="">
                     <Message showUsername={showUsername} date={data.sent_date} username={data.sender_name} message={data.content}></Message>
+                    <DateSeparator></DateSeparator>
                 </div>
             )
         })

@@ -389,6 +389,39 @@ padding-bottom: 0 !important;
   .ql-send-message{
     color: #06c;
   }
+
+  .divider-date-separator{
+      position: absolute !important;
+      background: gray !important;
+      height: 1px !important;
+      top: 15px; 
+      z-index: -1;
+      /* width: 20px !important; */
+      width: 100%; 
+  }
+
+
+  .date-separator-container{
+      position: relative;
+      width: 100% !important;
+  }
+
+  .date-separator-wrapper{
+    background: rgba(var(--sk_primary_background,255,255,255),1);
+    /* display: inline-block; */
+    z-index: 201;
+    padding: .25rem .75rem;
+    border-radius: 24px;
+    /* position: relative; */
+    border: gray 1px solid;
+    margin: 0 auto !important;
+    width: 160px !important;
+
+  }
+
+  date-separator-date{
+
+  }
   
 
 .chatbox-input{
