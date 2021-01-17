@@ -404,6 +404,7 @@ padding-bottom: 0 !important;
   .date-separator-container{
       position: relative;
       width: 100% !important;
+      text-align: center;
   }
 
   .date-separator-wrapper{

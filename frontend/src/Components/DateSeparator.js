@@ -8,7 +8,7 @@ export default class DateSeparator extends Component {
                 {/* <Divider></Divider> */}
                 <div className="divider-date-separator"></div>
                 <div className="date-separator-wrapper">
-                    <span className="date-separator-date">22nd, December 2020</span>
+                    <span className="date-separator-date">{this.props.date}</span>
                 </div>
             </div>
         )

@@ -3,6 +3,7 @@ import Message from './Message';
 import { Grid, Divider } from 'semantic-ui-react';
 import jquery from 'jquery';
 import DateSeparator from './DateSeparator';
+import dateFormat from 'dateformat';
 
 export default class MessageDisplay extends Component {
     constructor(props) {
@@ -58,6 +59,16 @@ export default class MessageDisplay extends Component {
         });
     };
 
+    getDateToDisplay = (date) => {
+        let yesterday = new Date();
+        yesterday.setDate(new Date().getDate() - 1)
+        if (new Date().toDateString() === date.toDateString())
+            return ("Today")
+        else if (date.toLocaleDateString() == yesterday.toLocaleDateString())
+            return ("Yesterday")    
+        else     
+            return dateFormat(date, "mmmm dS yyyy")
+    }
 
 
     render() {
@@ -69,11 +80,14 @@ export default class MessageDisplay extends Component {
             var current_username = this.props.messages[idx].sender_name
             if (current_username != old_username)
                 showUsername = true
-            old_username = current_username
+            old_username = current_username  
+            var local_date_str = this.getDateToDisplay(new Date(data.sent_date))
+                        // let date = local_date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
+    
             return (
                 <div className="">
                     <Message showUsername={showUsername} date={data.sent_date} username={data.sender_name} message={data.content}></Message>
-                    <DateSeparator></DateSeparator>
+                    <DateSeparator date={local_date_str}></DateSeparator>
                 </div>
             )
         })
