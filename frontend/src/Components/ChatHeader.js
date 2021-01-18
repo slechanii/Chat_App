@@ -73,14 +73,14 @@ export default class ChatHeader extends Component {
                     <div id="chat-header-menu-container">
 
                         {/* <div className="double-button-half-right user-count-channel"> */}
-                        <UserListModal usersList={this.state.users_list} channelName={this.props.channelName} userList={this.props.channelMembers} />
+                        <UserListModal usersList={this.state.users_list} channelId={this.props.channelId} reload={this.props.refreshMessages} channelName={this.props.channelName} userList={this.props.channelMembers} />
                         {/* </div> */}
                         {/* </button> */}
                         {/* <Button id="chat-add-btn">
                         <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                            <span>Add</span>
     </Button> */}
-                    <AddUsersModal channelId={this.props.channelId} reload={this.props.refreshMessages}  channelName={this.props.channelName}></AddUsersModal>
+                    <AddUsersModal addPeople={false} channelId={this.props.channelId} reload={this.props.refreshMessages}  channelName={this.props.channelName}></AddUsersModal>
                        
                         <ChannelMenu channelMembers={this.props.channelMembers} changeState={this.props.changeState} refreshMessages={this.props.refreshMessages} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.props.channelId}></ChannelMenu>
                     </div>

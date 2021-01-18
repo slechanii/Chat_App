@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, List, Button, Image, Search } from 'semantic-ui-react';
+import AddUsersModal from './AddUsersModal';
 
 
 export default class UserListModal extends Component {
@@ -9,6 +10,12 @@ export default class UserListModal extends Component {
 
     setOpen = (open) => {
         this.setState({ open: open })
+    }
+
+    reload = () => {
+        this.props.reload()
+        this.setOpen(false)
+
     }
 
     render() {
@@ -46,7 +53,9 @@ export default class UserListModal extends Component {
                 <Modal.Header className="create-chan-header">{this.props.userList.length} members in #{this.props.channelName}</Modal.Header>
                 <Modal.Content className="create-chan-content">
                     <button className="unstyled add-people-modal-btn">
-                    <span className="btn-link-txt">Add people</span>
+              
+                    <AddUsersModal addPeople={true} channelId={this.props.channelId} reload={this.reload}  channelName={this.props.channelName}></AddUsersModal>
+                       
                     </button>
                     <List selection verticalAlign='middle' className="user-list">
                         {users}
