@@ -19,5 +19,7 @@ urlpatterns = [
     path('getChannels/', views.UserChannels.as_view()),
     path('getProfile/', views.ProfileView.as_view()),
     path('getChannelMembers/', views.getChannelMembers),
+    path('getNonChannelMembers/', views.getNonChannelMembers),
     path('starChannel/', views.starChannel),
+    path('addUserToChannel/', views.addUserToChannel),
 ]

@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 import json
 from rest_framework import authentication, permissions
+from django.db.models import F
 # Create your views here.
 
 
@@ -38,6 +39,17 @@ def starChannel(request):
     profile.save()
     return Response("OK")
 
+"""
+Add user to a channel (id)
+params: channel_id, user_id
+"""
+@api_view(["POST"])
+def addUserToChannel(request):
+    user_to_add = models.Profile.objects.get(pk=request.data["profile_id"])
+    channel = models.Channel.objects.get(pk=request.data["channel_id"])
+    user_to_add.channels.add(channel)
+    return Response("User added!")
+
 
 """
 Gives all members of a channel (id and username)
@@ -48,6 +60,17 @@ def getChannelMembers(request):
     subscribed_users = models.Profile.objects.filter(channels__in=[request.data["channel_id"]])
     users_list = subscribed_users.values("id", "username")
     return Response(users_list)
+
+"""
+Gives all members NOT PART of a channel (id and username)
+params: channel_id
+"""
+@api_view(["POST"])
+def getNonChannelMembers(request):
+    unsubscribed_users = models.Profile.objects.exclude(channels__in=[request.data["channel_id"]])
+    users_list = unsubscribed_users.values("id", "username").annotate(user_id=F('id')).values('user_id', 'username')
+    return Response(users_list)
+
 
 """
 Gives ids and names of all channels user is a part of 

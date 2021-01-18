@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { Grid, Divider, Image, Button, Icon, Popup } from 'semantic-ui-react';
-import { FaPause, FaPlus } from 'react-icons/fa';
 import { BsStar } from 'react-icons/bs';
 import '../../node_modules/semantic-ui-css/semantic.min.css';
-import { VscInfo } from 'react-icons/vsc';
 import ChannelMenu from './ChannelMenu';
 import ChangeTopic from './ChangeTopic';
 import UserListModal from './UserListModal';
 import Axios from 'axios';
 import configData from "../config.json";
+import AddUsersModal from './AddUsersModal';
 
 
 export default class ChatHeader extends Component {
@@ -23,7 +22,7 @@ export default class ChatHeader extends Component {
     }
 
     getUserList = () => {
-        Axios.post(configData.SERVER_URL + "getChannelMembers/", { channel_id: 22 })
+        Axios.post(configData.SERVER_URL + "getChannelMembers/", { channel_id: this.props.channelId })
             .then((res) => {
                 this.setState({ users_list: res.data })
             })
@@ -81,11 +80,8 @@ export default class ChatHeader extends Component {
                         <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
                            <span>Add</span>
     </Button> */}
-
-                        <button className="unstyled" id="chat-add-btn">
-                            <FaPlus id="chat-add-icon" size="0.7em"></FaPlus>
-                            <span id="chat-add-text">Add</span>
-                        </button>
+                    <AddUsersModal channelId={this.props.channelId} reload={this.props.refreshMessages}  channelName={this.props.channelName}></AddUsersModal>
+                       
                         <ChannelMenu channelMembers={this.props.channelMembers} changeState={this.props.changeState} refreshMessages={this.props.refreshMessages} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.props.channelId}></ChannelMenu>
                     </div>
                 </Grid.Column>
