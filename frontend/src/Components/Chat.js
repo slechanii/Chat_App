@@ -15,6 +15,7 @@ export default class Chat extends Component {
         channel_members: [],
         channelId: 0,
         channel_is_starred: false,
+        is_user_chat: false,
     };
 
 
@@ -23,25 +24,10 @@ export default class Chat extends Component {
         
     }
 
-    checkStarredChannel = (current_id) => {
-        // alert(JSON.stringify(this.props.starredChannels))
-        // for (const id in this.props.starredChannels) {
-        //     if (this.props.starredChannels.hasOwnProperty(id)) {
-        //         if (this.props.starredChannels[id]["id"] === parseInt(current_id)) {
-        //             this.setState({ channel_is_starred: true })
-        //             return
-        //         }
-        //     }
-        // }
-    }
-
     getMessages = () => {
         let url = window.location.pathname
         url = url.split('/')[2]
         this.setState({ channelId: parseInt(url) })
-        // this.checkStarredChannel(url)
-        // if (this.props.starredChannels.includes(parseInt(url)))
-            // this.setState({ channel_is_starred: true })
         url = configData.SERVER_URL + "channels/" + url + "/"
         axios.get(url)
             .then((result) => {
@@ -50,6 +36,7 @@ export default class Chat extends Component {
                 this.setState({ messages: result.data.message_set })
                 this.setState({ topic: result.data.topic })
                 this.setState({ refresh: false })
+                this.setState({is_user_chat: result.data.is_user_chat})
                 if (result.data.star_channels.includes(parseInt(localStorage.getItem("user_item"))) 
                 || parseInt(result.data.star_channels) === parseInt(localStorage.getItem("user_id"))){
                     this.setState({channel_is_starred: true})
@@ -74,12 +61,10 @@ export default class Chat extends Component {
                 </div>
             )
         })
-        // alert("name : " + this.state.channel_name)
-
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
                 <Grid className="chat-grid">
-                    <ChatHeader checkStarredChannel={this.props.checkStarredChannel} channelStarred={this.state.channel_is_starred} channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
+                    <ChatHeader isUserChat={this.state.is_user_chat} checkStarredChannel={this.props.checkStarredChannel} channelStarred={this.state.channel_is_starred} channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
 
                     </ChatHeader>
                     <div>

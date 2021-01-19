@@ -22,4 +22,7 @@ urlpatterns = [
     path('getNonChannelMembers/', views.getNonChannelMembers),
     path('starChannel/', views.starChannel),
     path('addUserToChannel/', views.addUserToChannel),
+    path('getUsers/', views.getUsers),
+    path('startChat/', views.startChat),
+    path('leaveChat/', views.leaveChat),
 ]

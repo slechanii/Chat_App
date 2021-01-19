@@ -28,20 +28,21 @@ export default class ChannelMenu extends Component {
         let user_list = list
         const user_id = parseInt(localStorage.getItem("user_id"))
         const index = user_list.indexOf(user_id)
-        if (index > -1){
+        if (index > -1) {
             user_list.splice(index, 1)
             return (user_list)
         }
     }
-    
+
     leaveChannel = () => {
-       
+
+        if (this.props.isUserChat === false){
         const req_data = {
             channel_member: this.removeUserFromList(this.props.channelMembers)
         }
         this.setOpen(false);
         Axios.patch(configData.SERVER_URL + "channels/" + this.props.channelId + "/", req_data)
-            .then((res) => {            
+            .then((res) => {
                 this.setState({ redirect: true })
                 this.setState({ new_channel: this.pickNewChannelToLoad() })
                 this.setState({ redirect: true })
@@ -49,13 +50,27 @@ export default class ChannelMenu extends Component {
             .catch((error) => {
                 console.log(error)
             })
-        Axios.post(configData.SERVER_URL + "starChannel/", {profile_id: localStorage.getItem("user_id"), channel_id:this.props.channelId})
+        Axios.post(configData.SERVER_URL + "starChannel/", { profile_id: localStorage.getItem("user_id"), channel_id: this.props.channelId })
             .then((result) => {
                 this.props.refreshChannels()
-             })    
+            })
             .catch((err) => {
                 console.log(err)
-            })  
+            })
+        }
+        else{
+            this.setOpen(false);
+            Axios.post(configData.SERVER_URL + "leaveChat/", {profile_id: localStorage.getItem("user_id"), channel_id: this.props.channelId})
+            .then((res) => {
+                this.setState({ redirect: true })
+                this.setState({ new_channel: this.pickNewChannelToLoad() })
+                this.setState({ redirect: true })
+                this.props.refreshChannels()
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        }
     }
 
     deleteChannel = () => {
@@ -98,10 +113,12 @@ export default class ChannelMenu extends Component {
                         Leave channel
                     <Icon name="log out"></Icon>
                     </Menu.Item>
-                    <Menu.Item onClick={this.deleteChannel}>
-                        Delete channel
+                    {this.props.isUserChat == false &&
+                        <Menu.Item onClick={this.deleteChannel}>
+                            Delete channel
                     <Icon name="delete"></Icon>
-                    </Menu.Item>
+                        </Menu.Item>
+                    }
 
                 </Menu>
 

@@ -58,7 +58,8 @@ export default class WorkspaceMenu extends Component {
                     
                     {/* Standard Channels list */}
                     <ChannelsMenu title="Channels" starChannels={false} channels={this.props.channels} starredChannels={this.props.starredChannels} refreshChannels={this.props.refreshChannels}  changeState={this.changeState} ></ChannelsMenu>
-                    <MessagesMenu></MessagesMenu>
+                    <MessagesMenu channels={this.props.userChats} refreshChannels={this.props.refreshChannels}  changeState={this.changeState}></MessagesMenu>
+                    {/* <ChannelsMenu title="Direct messages" channels={this.props.userChats}></ChannelsMenu> */}
                    
                 </Grid>
                 <GridColumn width={14}> 

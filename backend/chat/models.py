@@ -7,6 +7,7 @@ class Channel(models.Model):
     name = models.CharField(max_length=128)
     description = models.CharField(max_length=128, default="")
     topic = models.CharField(max_length=128, default=" ")
+    is_user_chat = models.BooleanField(default=False)
     
 
 class Profile(models.Model):
@@ -15,6 +16,7 @@ class Profile(models.Model):
     channels = models.ManyToManyField(Channel, related_name="channel_member")
     channels_admin = models.ManyToManyField(Channel, related_name="channel_admin")
     star_channels = models.ManyToManyField(Channel, blank=True, related_name="star_channels")
+    user_chats = models.ManyToManyField(Channel, blank=True, related_name="user_chats")
 
 '''
 Creates / updates user profile
@@ -45,8 +47,17 @@ Creates / updates messages
 def create_message(sender, instance, created, **kwargs):
     if created:
         profile_name = instance.sender_id.user.username
-        instance.sender_name = profile_name
+        instance.sender_name = profile_name        
         instance.save()
+        print(instance.destination_id.is_user_chat)
+        # dest = Channel.objects.get(pk=instance.destination_id) 
+        if instance.destination_id.is_user_chat is True:
+           members = instance.destination_id.channel_member.all()
+           for member in members:
+               member.user_chats.add(instance.destination_id)
+               member.save() 
+        #    print(instance.destination_id.channel_member.all()) 
+        # print("ID CHAN: " + dest.is_user_chat)
 
 # @receiver(post_save, sender=Message)
 # def save_message(sender, instance, **kwargs):

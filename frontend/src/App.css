@@ -438,6 +438,10 @@ padding-bottom: 0 !important;
      width: 100% !important;
  }
 
+ .chat-header > .column{
+    padding-top: 10px;
+ }
+
 
   .today-date{
      width: 100px; 
@@ -474,6 +478,11 @@ padding-bottom: 0 !important;
     font-weight: bold !important;
 }
 
+#channel-title-user-chat{
+    font-weight: bold !important;
+    margin-top: 7px !important; 
+}
+
 #chat-channel-topic{
     color: gray !important;
 }
@@ -486,6 +495,11 @@ padding-bottom: 0 !important;
     cursor: pointer !important;
     color: rgb(0, 119, 255) !important;
 }
+
+.ui.search > .results {
+    overflow-y: scroll !important;
+    max-height: 250px !important;
+  }
 
 .user-count-channel-btn:hover{
     cursor: pointer !important;    

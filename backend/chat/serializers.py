@@ -11,7 +11,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'user', 
             'channels',
             'username',
-            'star_channels'
+            'star_channels',
+            'user_chats',
         )
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -57,4 +58,4 @@ class ChannelSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Channel
         # messages = MessageSerializer(many=True)    
-        fields = ("id", 'name', 'channel_member', 'message_set', 'topic', 'description', 'channel_admin', 'star_channels' )
+        fields = ("id", 'name', 'channel_member', 'message_set', 'topic', 'description', 'channel_admin', 'star_channels', 'is_user_chat')

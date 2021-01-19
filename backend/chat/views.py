@@ -8,6 +8,7 @@ from rest_framework.decorators import api_view
 import json
 from rest_framework import authentication, permissions
 from django.db.models import F
+from django.db.models import Count
 # Create your views here.
 
 
@@ -71,6 +72,51 @@ def getNonChannelMembers(request):
     users_list = unsubscribed_users.values("id", "username").annotate(user_id=F('id')).values('user_id', 'username')
     return Response(users_list)
 
+"""
+Finds or creates a channel (user_chat) for both users, adds channel to emitter shortlist
+params: emitter_profile_id, receiver_profile_id
+"""
+@api_view(["POST"])
+def startChat(request):
+    user_list = [int(request.data["emitter_profile_id"]), int(request.data["receiver_profile_id"])]    
+    query = models.Channel.objects.annotate(count=Count('channel_member')).filter(count=len(user_list))
+    for user in user_list:
+        query = query.filter(channel_member=user, is_user_chat=True)
+    if query.exists():      
+        channel_id = int(query.values_list("id", flat=True)[0])
+        emitter = models.Profile.objects.get(pk=int(request.data["emitter_profile_id"]))
+        receiver = models.Profile.objects.get(pk=int(request.data["receiver_profile_id"]))
+        emitter.user_chats.add(channel_id)
+        emitter.save()
+        # receiver.user_chats.add(channel_id)
+        # receiver.save()
+        return Response("OK")
+    else:        
+        # Creates channel, adds both users to it and adds it to emitter shortlist 
+        chat = models.Channel(name="test", is_user_chat=True)
+        chat.save()
+        chat.channel_member.add(int(request.data["emitter_profile_id"]))
+        chat.channel_member.add(int(request.data["receiver_profile_id"]))
+        chat.user_chats.add(int(request.data["emitter_profile_id"]))
+        # chat.user_chats.add(int(request.data["receiver_profile_id"]))
+        chat.save() 
+        return Response("EMPTY") 
+    # unsubscribed_users = models.Profile.objects.exclude(channels__in=[request.data["channel_id"]])
+    # users_list = unsubscribed_users.values("id", "username").annotate(user_id=F('id')).values('user_id', 'username')
+    # return Response(users_list)
+
+"""
+Removes given channel from user shortlist 
+params : profile_id, channel_id
+"""
+@api_view(['POST'])
+def leaveChat(request): 
+    models.Profile.objects.get(pk=request.data["profile_id"]).user_chats.remove(request.data["channel_id"])
+    # permissions_classes = (permissions.IsAuthenticated)   
+    # subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.filter(is_user_chat=False).values("name", "id")
+    return Response("channel left")
+
+
 
 """
 Gives ids and names of all channels user is a part of 
@@ -79,8 +125,18 @@ params : profile_id
 @api_view(['POST'])
 def getUserChannels(request): 
     # permissions_classes = (permissions.IsAuthenticated)   
-    subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.values("name", "id")
+    subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.filter(is_user_chat=False).values("name", "id")
     return Response(subscribed_channels)
+
+"""
+Gives ids and names of all users  
+params : NONE
+"""
+@api_view(['GET'])
+def getUsers(request): 
+   users_list = models.Profile.objects.all().values("id", "username").annotate(user_id=F('id')).values('user_id', 'username')
+   return Response(users_list)
+
 
 class ProfileView(APIView):
     authentication_classes = [authentication.TokenAuthentication] 
@@ -98,9 +154,10 @@ class UserChannels(APIView):
     permissions_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
-        subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.values("name", "id")
+        subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.filter(is_user_chat=False).values("name", "id")
+        user_chats = models.Profile.objects.get(pk=request.data["profile_id"]).user_chats.filter(is_user_chat=True).values("name", "id")
         starred_channels = models.Profile.objects.get(pk=request.data["profile_id"]).star_channels.values("name", "id")
-        return Response({"subscribed_channels": subscribed_channels, "starred_channels": starred_channels })
+        return Response({"subscribed_channels": subscribed_channels, "starred_channels": starred_channels, "user_chats":user_chats })
 
 
 class UserList(APIView):
