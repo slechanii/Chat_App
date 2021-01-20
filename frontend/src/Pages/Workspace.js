@@ -4,13 +4,15 @@ import WorkspaceMenu from '../Components/WorkspaceMenu';
 import Chat from '../Components/Chat';
 import axios from 'axios';
 import configData from "../config.json";
+import UserProfileMenu from '../Components/UserProfileMenu';
+import { Redirect } from "react-router-dom";
 
 export default class Workspace extends Component {
 
     state = {
         refreshChat: false,
         profile_id: 0,
-        channels : [],
+        channels: [],
         starred_channels: [],
         user_chats: [],
     }
@@ -43,9 +45,9 @@ export default class Workspace extends Component {
         axios.post(configData.SERVER_URL + "getChannels/", { "profile_id": this.state.profile_id })
             .then((result) => {
                 this.setState({ channels: result.data.subscribed_channels })
-                this.setState({ starred_channels: result.data.starred_channels})      
-                this.setState({ user_chats: result.data.user_chats})  
-    
+                this.setState({ starred_channels: result.data.starred_channels })
+                this.setState({ user_chats: result.data.user_chats })
+
             })
             .catch((error) => { console.log(error) })
     }
@@ -53,13 +55,19 @@ export default class Workspace extends Component {
 
 
     render() {
+        if (!localStorage.getItem("username") ||
+            !localStorage.getItem("user_id"))
+            return (
+                <Redirect to="/login"></Redirect>
+            )
 
         return (
             <Grid className="workspace-grid" >
                 <GridRow className="workspace-first-row" columns={16}>
-                    <GridColumn>
-                        dkkza
-            </GridColumn>
+                <GridColumn className="profile-col" width={16}> 
+                
+                    <UserProfileMenu></UserProfileMenu>
+                    </GridColumn>
                 </GridRow>
                 <GridRow className="workspace-second-row" columns={16}>
                     <WorkspaceMenu userChats={this.state.user_chats} starredChannels={this.state.starred_channels} channels={this.state.channels} refreshChannels={this.getChannels} changeState={this.changeState}></WorkspaceMenu>

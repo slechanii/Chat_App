@@ -16,33 +16,14 @@ export default class MessageDisplay extends Component {
         maxDelta: 0,
     }
 
-    componentDidMount() {
-        // IE, Chrome, Safari, Opera
-        window.addEventListener("wheel", this.scrollHandler);
-
-        // Firefox
-        window.addEventListener("DOMMouseScroll", this.scrollHandler);
-
-        const maxDelta = jquery(".container-content").height() - window.innerHeight;
-
-        this.setState({
-            maxDelta
-        });
-
-        jquery(".container-content.left").css(
-            "transform",
-            `translateY(-${jquery(".container-content").height()}px)`
-        );
-        this.scrollToBottom();
-    }
-
+ 
     componentDidUpdate () {
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
 
     // Scroll to bottom of chat
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+        this.messagesEnd.scrollIntoView();
       }
       
 
