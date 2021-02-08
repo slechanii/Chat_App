@@ -688,6 +688,10 @@ padding-bottom: 0 !important;
     margin-top: 5px !important;
 }
 
+#profile-img-chat-message:hover{
+    cursor: pointer;
+}
+
 #profile-img{
     height: 32px;
     width: 32px;
@@ -708,6 +712,11 @@ padding-bottom: 0 !important;
 
 .chat-message-username{
     font-weight: 900; 
+}
+
+.chat-message-username:hover{
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .chat-message-time{
@@ -793,9 +802,68 @@ padding-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
+
+.profile-popup::after{
+    /* margin-top: 200px !important; */
+}
+
+.profile-popup-container{
+    width: 250px;
+    /* height: 375px; */
+    border-radius: 8px;
+    /* margin-top: 200px !important; */
+    /* padding-top: 70% !important; */
+}
+
+.profile-popup-img-container{
+    width: 250px;
+    height: 250px;    
+    /* height: 261px;  */
+   
+    /* padding: 70% !important; */
+   
+}
+
+.profile-popup-img{
+    width: 100%;
+    /* height: 100%; */
+    height: 100%;
+}
+
+.profile-popup-options-container{
+    padding: 20px; 
+}
+
+.popup-username{
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    text-align: center !important;
+}
+
+.popup-send-msg-container{
+    margin-top: 20px;
+    width: 100%;
+}
+
+.popup-send-msg-btn{
+    width: 100%;
+
+}
+
+.small-user-popup{
+    height: 200px;
+}
+
+.big-user-popup{
+    height: 250px;
+}
+
 /* 
     CHAT END
 */
+
+
 
 
 /*

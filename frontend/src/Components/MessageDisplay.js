@@ -75,12 +75,14 @@ export default class MessageDisplay extends Component {
             old_username = current_username  
            
                         // let date = local_date.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})
-    
+            // alert(JSON.stringify(data))
             return (
+                
                 <div className="">
-                    <Message showUsername={showUsername} date={data.sent_date} username={data.sender_name} message={data.content}></Message>
-                    { showDate === true ?  <DateSeparator date={local_date_str}></DateSeparator>
+                     { showDate === true ?  <DateSeparator date={local_date_str}></DateSeparator>
                     : null}
+                    <Message refreshChannels={this.props.refreshChannels} profile_id={data.sender_id} showUsername={showUsername} date={data.sent_date} username={data.sender_name} message={data.content}></Message>
+               
                    
                 </div>
             )

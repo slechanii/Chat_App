@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Popup, Segment, Icon } from 'semantic-ui-react'
-import { VscInfo } from 'react-icons/vsc';
-import Axios from 'axios';
-import configData from "../config.json";
+import { Menu, Popup, Icon } from 'semantic-ui-react'
 import { Redirect } from "react-router-dom";
 
 export default class UserProfileMenu extends Component {
@@ -19,8 +16,6 @@ export default class UserProfileMenu extends Component {
     }
 
     signOut = () => {
-        // localStorage.setItem("user_id", null)
-        // localStorage.setItem("username", null)
         localStorage.clear();
         this.setState({ redirect: true })
     }
@@ -51,14 +46,9 @@ export default class UserProfileMenu extends Component {
                 open={this.state.open}
                 position='bottom right'
                 content={<Menu className="menu-popup"
-                    onItemClick={() => this.setOpen(false)}
-                    // secondary
+                    onItemClick={() => this.setOpen(false)}              
                     vertical
                 >
-                    <Menu.Item onClick={this.editProfile}>
-                        Edit profile
-                    <Icon name="edit"></Icon>
-                    </Menu.Item>
 
                     <Menu.Item onClick={this.signOut}>
                         Sign out

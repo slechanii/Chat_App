@@ -70,7 +70,7 @@ export default class Chat extends Component {
                     <div>
                     </div>
                     <Grid.Row className="chat-messages-container">
-                        <MessageDisplay messages={this.state.messages}>
+                        <MessageDisplay refreshChannels={this.props.refreshChannels} messages={this.state.messages}>
                         </MessageDisplay>
                     </Grid.Row>
 
