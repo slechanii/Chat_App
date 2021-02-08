@@ -5,6 +5,7 @@ import axios from 'axios';
 import ChatHeader from './ChatHeader.js';
 import MessageDisplay from './MessageDisplay.js';
 import Chatbox from './Chatbox.js';
+import Axios from "axios";
 export default class Chat extends Component {
 
     state = {
@@ -16,13 +17,34 @@ export default class Chat extends Component {
         channelId: 0,
         channel_is_starred: false,
         is_user_chat: false,
+        user_chat_name: "", 
     };
 
 
     componentDidMount() {
         this.getMessages();
-        
+        if (this.state.channel_members && this.state.is_user_chat === true)
+            this.getChatName();
     }
+
+      // Used for user to user chats => returns name of other user to display as channel title
+  getChatName = () => {
+      if (this.state.channel_members != undefined){  
+        //   alert(localStorage.getItem("user_id"))
+        //   alert(this.state.channel_members.indexOf(parseInt(localStorage.getItem("user_id"))))
+    let user_id = null;
+    if (
+      this.state.channel_members.indexOf(parseInt(localStorage.getItem("user_id"))) === 0
+    ){
+      user_id = this.state.channel_members[1];
+    }
+    else user_id = this.state.channel_members[0];
+    Axios.get(configData.SERVER_URL + "profile/" + user_id).then(res => {
+      this.setState({ user_chat_name: res.data.username });
+    });
+}
+  };
+
 
     getMessages = () => {
         let url = window.location.pathname
@@ -32,7 +54,7 @@ export default class Chat extends Component {
         axios.get(url)
             .then((result) => {
                 this.setState({ channel_name: result.data.name })
-                this.setState({ channel_members: result.data.channel_member })
+                this.setState({ channel_members: result.data.channel_member }, () => {this.getChatName()})
                 this.setState({ messages: result.data.message_set })
                 this.setState({ topic: result.data.topic })
                 this.setState({ refresh: false })
@@ -45,12 +67,15 @@ export default class Chat extends Component {
                     this.setState({channel_is_starred: false})
             })
             .catch((error) => { console.log(error) })
+         
     }
 
 
     render() {
         if (this.props.refreshChat === true) {
             this.getMessages();
+            // if (this.state.channel_members.length > 0 && this.state.is_user_chat === true)
+            // this.getChatName();
             this.props.changeState("refreshChat", false)
         }
 
@@ -64,7 +89,7 @@ export default class Chat extends Component {
         return (
             <GridColumn className="workspace-chat" width={14} onClick={this.getMessages}>
                 <Grid className="chat-grid">
-                    <ChatHeader isUserChat={this.state.is_user_chat} checkStarredChannel={this.props.checkStarredChannel} channelStarred={this.state.channel_is_starred} channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
+                    <ChatHeader user_chat_name={this.state.user_chat_name} isUserChat={this.state.is_user_chat}  checkStarredChannel={this.props.checkStarredChannel} channelStarred={this.state.channel_is_starred} channelTopic={this.state.topic} channels={this.props.channels} refreshChannels={this.props.refreshChannels} channelId={this.state.channelId} refreshMessages={this.getMessages} channelName={this.state.channel_name} changeState={this.props.changeState} channelMembers={this.state.channel_members}>
 
                     </ChatHeader>
                     <div>
