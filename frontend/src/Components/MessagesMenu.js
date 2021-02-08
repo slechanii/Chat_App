@@ -43,16 +43,22 @@ export default class MessagesMenu extends Component {
     render() {
         const channels = this.props.channels.map((data, idx) => {
             var active_channel = false
+            let channel_name = ""
+            if (data.usernames.indexOf(localStorage.getItem("username")) === 0)
+                channel_name = data.usernames[1]
+            else
+                channel_name = data.usernames[0]
             if (data.id === this.getActiveChannel()) {
                 active_channel = true
             }
+
             // Display channel if rendering fav list OR Display if rendering regular channels and channel isn't in fav list  
                  return (
   
                     <List.Item onClick={() => { this.loadChannel(data.id) }} className={`workspace-submenu-row-item ${active_channel ? "active-item" : ""}`} >
                         <List.Icon > <FaHashtag></FaHashtag></List.Icon>
                         <List.Content className="channel-title-menu">
-                            {data.name}
+                            {channel_name}
                         </List.Content>
                     </List.Item>
                 )

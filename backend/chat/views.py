@@ -157,6 +157,15 @@ class UserChannels(APIView):
         subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.filter(is_user_chat=False).values("name", "id")
         user_chats = models.Profile.objects.get(pk=request.data["profile_id"]).user_chats.filter(is_user_chat=True).values("name", "id")
         starred_channels = models.Profile.objects.get(pk=request.data["profile_id"]).star_channels.values("name", "id")
+        for chats in user_chats:
+            # prendre un chat
+            # prendre chaque user_id dans le chat
+            # trouver le nom de chaque user + mettre dans une liste et la coller dans le chat
+            current_chat_ids = models.Profile.objects.filter(channels__in=[chats["id"]])
+            usernames = []
+            for user_id in current_chat_ids:
+                usernames.append(user_id.username)
+            chats["usernames"] = usernames
         return Response({"subscribed_channels": subscribed_channels, "starred_channels": starred_channels, "user_chats":user_chats })
 
 
