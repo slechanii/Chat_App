@@ -20,6 +20,7 @@ export default class Workspace extends Component {
     componentDidMount() {
         this.getProfile();
         this.getChannels();
+        setInterval(this.getChannels, 5000);
     }
 
 

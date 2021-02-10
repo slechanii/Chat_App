@@ -23,6 +23,7 @@ export default class Chat extends Component {
 
     componentDidMount() {
         this.getMessages();
+        setInterval(this.getMessages, 5000);
         if (this.state.channel_members && this.state.is_user_chat === true)
             this.getChatName();
     }
@@ -47,6 +48,7 @@ export default class Chat extends Component {
 
 
     getMessages = () => {
+
         let url = window.location.pathname
         url = url.split('/')[2]
         this.setState({ channelId: parseInt(url) })
