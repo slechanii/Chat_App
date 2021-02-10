@@ -20,6 +20,8 @@ class ChannelViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ChannelSerializer
     queryset = models.Channel.objects.all() 
 
+    
+
 class MessageViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.MessageSerializer
     queryset = models.Message.objects.all()    

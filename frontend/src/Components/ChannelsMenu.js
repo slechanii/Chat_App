@@ -16,12 +16,14 @@ export default class ChannelsMenu extends Component {
     state = {
         activeIndex: 0,
         hover: false,
-        channels: [],
+        // channels: [],
+        channels: this.props.channels,
         profile_id: null,
         redirect: false,
         channel_to_load: null,
         display_channels: false,
-    };
+        active_channel: -1,
+        };
 
     loadChannel = (channel_id) => {
         const url = "/workspace/" + channel_id
@@ -53,9 +55,15 @@ export default class ChannelsMenu extends Component {
         let display_channels = false
         const { activeIndex } = this.state
         const channels = this.props.channels.map((data, idx) => {
+
             var active_channel = false
             if (data.id === this.getActiveChannel()) {
                 active_channel = true
+                
+                if (this.state.active_channel != data.id){ 
+                    this.setState({active_channel: data.id})
+                    alert("active " + data.id)
+                }
             }
             // Display channel if rendering fav list OR Display if rendering regular channels and channel isn't in fav list  
             if (this.props.starChannels === true || (this.props.starChannels === false && this.props.starredChannels.find(function (el) { return el.id === data.id }) == undefined)) {
@@ -64,7 +72,8 @@ export default class ChannelsMenu extends Component {
                     <List.Item onClick={() => { this.loadChannel(data.id) }} className={`workspace-submenu-row-item ${active_channel ? "active-item" : ""}`} >
                         <List.Icon > <FaHashtag></FaHashtag></List.Icon>
                         <List.Content className="channel-title-menu">
-                            {data.name}
+                            {data.name} 
+                            <span> new : {data.new_messages_count}</span>
                         </List.Content>
                     </List.Item>
                 )
