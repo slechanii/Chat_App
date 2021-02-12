@@ -45,6 +45,7 @@ export default class Workspace extends Component {
     getChannels = () => {
         axios.post(configData.SERVER_URL + "getChannels/", { "profile_id": this.state.profile_id })
             .then((result) => {
+                // alert(JSON.stringify(result.data.subscribed_channels))
                 this.setState({ channels: result.data.subscribed_channels })
                 this.setState({ starred_channels: result.data.starred_channels })
                 this.setState({ user_chats: result.data.user_chats })

@@ -9,8 +9,7 @@ import json
 from rest_framework import authentication, permissions
 from django.db.models import F
 from django.db.models import Count
-# Create your views here.
-
+from django.shortcuts import get_object_or_404
 
 class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserProfileSerializer
@@ -20,6 +19,31 @@ class ChannelViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ChannelSerializer
     queryset = models.Channel.objects.all() 
 
+    # When fetching channel messages => updates user viewed message count to be current count 
+    def retrieve(self, request, pk=None):
+        queryset = models.Channel.objects.all() 
+        print("------------------")
+        print(request.query_params.get("profile_id"))
+        print("------------------")
+        channel = get_object_or_404(queryset, pk=pk)
+        message_count = models.Message.objects.filter(destination_id=channel.id).count()
+
+        user_count = channel.message_read_count.get(user_id=request.query_params.get("profile_id"))
+        user_count.read_count = message_count
+        user_count.save()
+        serializer = serializers.ChannelSerializer(channel)
+        return Response(serializer.data)
+        # return (Response())
+                
+    # def get_queryset(self):
+    #     if self.request.query_params.get is not {}: 
+    #         print("------------------")
+    #         print(self.request)
+    #         print("------------------")
+
+class ReadCountViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.ReadCountSerializer
+    queryset = models.ReadCount.objects.all() 
     
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -159,10 +183,17 @@ class UserChannels(APIView):
         subscribed_channels = models.Profile.objects.get(pk=request.data["profile_id"]).channels.filter(is_user_chat=False).values("name", "id")
         user_chats = models.Profile.objects.get(pk=request.data["profile_id"]).user_chats.filter(is_user_chat=True).values("name", "id")
         starred_channels = models.Profile.objects.get(pk=request.data["profile_id"]).star_channels.values("name", "id")
+        user_profile = models.Profile.objects.get(pk=request.data["profile_id"])
         # add message count in channels
         for channel in subscribed_channels:
             message_count = models.Message.objects.filter(destination_id=channel["id"]).count()
+            channel_instance = models.Channel.objects.get(pk=channel["id"])
+            user_read_count = channel_instance.message_read_count.get(user_id=request.data["profile_id"])
+            # print("-------")
+            # print(user_read_count.read_count)
+            # print("-------")
             channel["message_count"] = message_count
+            channel["user_read_count"] = user_read_count.read_count
         
         # add message count in user chats
         for channel in user_chats:

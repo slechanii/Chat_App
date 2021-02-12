@@ -27,6 +27,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('username', 'id', 'password')
 
+class ReadCountSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ReadCount
+        fields = ('__all__')
+
+
 
 class UserSerializerWithToken(serializers.ModelSerializer):
 

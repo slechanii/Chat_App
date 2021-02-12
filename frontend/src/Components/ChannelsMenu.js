@@ -3,6 +3,7 @@ import { Grid, GridRow, GridColumn, Accordion, List, Icon, } from 'semantic-ui-r
 import { FaChevronDown, FaHashtag, FaPlusSquare, FaPlus } from 'react-icons/fa';
 import { Redirect } from "react-router-dom";
 import AddChannelModal from './AddChannelModal.js';
+import UnreadMessagesNotif from './UnreadMessagesNotif.js';
 // import { ModalExampleModal } from "../Components/AddChannelModal";
 
 
@@ -55,14 +56,14 @@ export default class ChannelsMenu extends Component {
         let display_channels = false
         const { activeIndex } = this.state
         const channels = this.props.channels.map((data, idx) => {
-
+            const unread_messages = data.user_read_count - data.message_count 
             var active_channel = false
             if (data.id === this.getActiveChannel()) {
                 active_channel = true
                 
                 if (this.state.active_channel != data.id){ 
                     this.setState({active_channel: data.id})
-                    alert("active " + data.id)
+                    // alert("active " + data.id)
                 }
             }
             // Display channel if rendering fav list OR Display if rendering regular channels and channel isn't in fav list  
@@ -73,8 +74,10 @@ export default class ChannelsMenu extends Component {
                         <List.Icon > <FaHashtag></FaHashtag></List.Icon>
                         <List.Content className="channel-title-menu">
                             {data.name} 
-                            <span> new : {data.new_messages_count}</span>
-                        </List.Content>
+                            { unread_messages < 0 && active_channel === false &&
+                            <UnreadMessagesNotif unreadMessages={unread_messages}></UnreadMessagesNotif>
+                            }
+                            </List.Content>
                     </List.Item>
                 )
             }

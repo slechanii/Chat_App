@@ -53,7 +53,7 @@ export default class Chat extends Component {
         url = url.split('/')[2]
         this.setState({ channelId: parseInt(url) })
         url = configData.SERVER_URL + "channels/" + url + "/"
-        axios.get(url)
+        axios.get(url + "?profile_id=" + localStorage.getItem("user_id"))
             .then((result) => {
                 this.setState({ channel_name: result.data.name })
                 this.setState({ channel_members: result.data.channel_member }, () => {this.getChatName()})

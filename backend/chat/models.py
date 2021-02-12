@@ -69,22 +69,41 @@ If user is deleted => delete read count from chat then delete read count
 
 Save channel at the end
 '''
-def handle_read_counts(sender, instance, action, **kwargs):
+def handle_read_counts(sender, instance, action, pk_set, **kwargs):
     if action is "post_add":
         print("------------------")
 
-        #If readcount doesn't exist for this user in channel
-        if not instance.message_read_count.filter(user_id=instance.channel_member.last()) :
-            new_count = ReadCount(user_id=instance.channel_member.last(),
-            read_count= Message.objects.filter(destination_id=instance.id).count())            
-            print("Saving new read count of ",
-            Message.objects.filter(destination_id=instance.id).count(),
-            " messages for new user ",  instance.channel_member.last(), " in chat ", instance.name)
-            new_count.save()
-            instance.message_read_count.add(new_count)
-            instance.save()
-        print("------------------")
-
+        # If channel was just created, create user count for creator and save it in channel count list
+        if isinstance(instance, Channel):            
+            if not instance.message_read_count.filter(user_id=instance.channel_member.last()).exists() or not instance.message_read_count.filter(user_id=instance.channel_member.last()) :
+                new_count = ReadCount(user_id=instance.channel_member.last(),
+                read_count= Message.objects.filter(destination_id=instance.id).count())            
+                print("Saving new read count of ",
+                Message.objects.filter(destination_id=instance.id).count(),
+                " messages for new user ",  instance.channel_member.last(), " in chat ", instance.name)
+                new_count.save()
+                instance.message_read_count.add(new_count)
+                instance.save()
+                print("TRIGGERED FROM CHANNEL CREATION") 
+        else:
+            print("TRIGGERED FROM JOINING CHANNEL")  
+            # retrieve channel from pk_set
+            target_channel = Channel.objects.get(pk=pk_set.pop())
+            if not target_channel.message_read_count.filter(user_id=target_channel.channel_member.last()).exists() or not target_channel.message_read_count.filter(user_id=target_channel.channel_member.last()) :
+                new_count = ReadCount(user_id=target_channel.channel_member.last(),
+                read_count= Message.objects.filter(destination_id=target_channel.id).count())            
+                print("Saving new read count of ",
+                Message.objects.filter(destination_id=target_channel.id).count(),
+                " messages for new user ",  target_channel.channel_member.last(), " in chat ", target_channel.name)
+                new_count.save()
+                target_channel.message_read_count.add(new_count)
+                target_channel.save()
+                    
+            # print(type(pk_set))
+            # print()          
+            # last_joined_channel = instance.channel_
+            print("TRIGGERED FROM CHANNEL CREATION")     
+        print("------------------")  
 m2m_changed.connect(handle_read_counts, sender=Channel.channel_member.through)
 
 

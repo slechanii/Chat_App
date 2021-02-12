@@ -97,6 +97,20 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
     WORKSPACE START
 */
 
+.unread-messages-container{
+    float: right;
+    margin-right: 25px;
+    background: red;
+    padding-left: 3px;
+    padding-right: 3px;
+    border: 2px solid red;
+    border-radius: 5px; 
+}
+
+.unread-messages-text{
+
+}
+
 #header-menu-popup{
     padding: 0 !important;
 }
