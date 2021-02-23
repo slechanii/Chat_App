@@ -30,7 +30,7 @@ class ChannelViewSet(viewsets.ModelViewSet):
 
         user_count = channel.message_read_count.get(user_id=request.query_params.get("profile_id"))
         user_count.read_count = message_count
-        user_count.save()
+        user_count.save( )
         serializer = serializers.ChannelSerializer(channel)
         return Response(serializer.data)
         # return (Response())

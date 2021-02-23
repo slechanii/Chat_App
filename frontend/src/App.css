@@ -886,4 +886,64 @@ padding-bottom: 0 !important;
 
 
 
+/* Login / Register */
+.login-container{
+    height: 100%;
+}
 
+.register-container{
+    height: 100%;
+ 
+}
+
+.register-text{
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.register-row{
+    transform: translateY(20%);
+}
+
+.input-username{
+  /* border:  unset !important;
+  border: 1px solid rgb(255, 27, 27) !important; */
+  border: 1px solid rgb(124, 125, 126);
+  color: rgba(0,0,0,.87);
+  border-radius: .28571429rem;
+}
+
+.input-username ::placeholder{
+    color: rgba(0, 0, 0, 0.486) !important;
+}
+
+.input-password ::placeholder{
+    color: rgba(0, 0, 0, 0.486) !important;
+}
+
+.input-password{
+    border: 1px solid rgb(124, 125, 126);
+    color: rgba(0,0,0,.87);
+    border-radius: .28571429rem;
+}
+
+.input-button > button{
+    width: 100% !important;
+
+    color:  white !important;
+    background: #361737 !important;
+    
+}
+
+.input-button > button:hover{
+    background: #3F0E40 !important;
+} 
+
+.register-subtext{
+    margin-top: 15px;
+    font-size: 15px;
+    text-align: center; 
+}
+
+/* Login / Register END*/

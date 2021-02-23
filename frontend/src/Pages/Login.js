@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Button, Grid, GridRow, GridColumn, Form } from 'semantic-ui-react'
+import { Grid, Message, Form } from 'semantic-ui-react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import configData from  "../config.json";
 
 export default class Register extends Component {
 
-    state = { username: '', password: '', submittedUsername: '', submittedPassword: '', redirect: false,}
+    state = { username: '', password: '', submittedUsername: '', submittedPassword: '', redirect: false, error:false,}
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
@@ -24,7 +24,8 @@ export default class Register extends Component {
             this.setState({redirect:true})
         })
         .catch(error => {
-            alert("Error : " + error)
+            this.setState({error: true})
+            console.log("Error : " + error)
         })
     }
 
@@ -34,28 +35,47 @@ export default class Register extends Component {
         }
         const { username, password, submittedUsername, submittedPassword } = this.state 
         return (
-            <Grid verticalAlign="middle" columns={4} >
-                <GridRow verticalAlign="middle" centered>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group>
-                            <Form.Input
-                                placeholder='Username'
-                                name='username'
-                                value={username}
-                                onChange={this.handleChange}
-                            />
-                            <Form.Input
-                                placeholder='Password'
-                                name='password'
-                                value={password}
-                                onChange={this.handleChange}
-                            />
-                            <Form.Button content='Login' />
-                        </Form.Group>
-                    </Form>
 
-                </GridRow>
-            </Grid>
+            <Grid className="register-container" verticalAlign="top">
+            <Grid.Row className="register-row" centered>
+              <Grid.Column width={4}>
+                <p className="register-text">Sign In to Slack-lite</p>
+    
+                <Form error={this.state.error} onSubmit={this.handleSubmit}>
+                  <Form.Field>
+                    <Form.Input
+                      required
+                      placeholder="Username"
+                      name="username"
+                      value={username}
+                      onChange={this.handleChange}
+                      className="input-username"
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <Form.Input
+                      required
+                      placeholder="Password"
+                      name="password"
+                      value={password}
+                      onChange={this.handleChange}
+                      className="input-password"
+                    />
+                  </Form.Field>
+                  <Form.Button className="input-button" content="Sign in" />
+                  <Message
+                    error
+                    header="Something went wrong"
+                    content="This account or the username/password pair given doesn't exist"
+                  />
+                </Form>
+    
+                <p className="register-subtext"><a href="login">You don't have an account yet ?  </a></p>
+     
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+
         )
     }
 }
