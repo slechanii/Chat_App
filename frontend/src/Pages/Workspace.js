@@ -57,6 +57,8 @@ export default class Workspace extends Component {
 
 
     render() {
+
+
         if (!localStorage.getItem("username") ||
             !localStorage.getItem("user_id"))
             return (

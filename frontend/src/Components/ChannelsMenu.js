@@ -24,6 +24,7 @@ export default class ChannelsMenu extends Component {
         channel_to_load: null,
         display_channels: false,
         active_channel: -1,
+        new_messages: false,
         };
 
     loadChannel = (channel_id) => {
@@ -53,6 +54,9 @@ export default class ChannelsMenu extends Component {
     }
 
     render() {
+
+
+
         let display_channels = false
         const { activeIndex } = this.state
         const channels = this.props.channels.map((data, idx) => {
