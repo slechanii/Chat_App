@@ -39,7 +39,7 @@ export default class Register extends Component {
             <Grid className="register-container" verticalAlign="top">
             <Grid.Row className="register-row" centered>
               <Grid.Column width={4}>
-                <p className="register-text">Sign In to Slack-lite</p>
+                <p className="register-text">Sign in to Slack-lite</p>
     
                 <Form error={this.state.error} onSubmit={this.handleSubmit}>
                   <Form.Field>
@@ -70,7 +70,7 @@ export default class Register extends Component {
                   />
                 </Form>
     
-                <p className="register-subtext"><a href="login">You don't have an account yet ?  </a></p>
+                <p className="register-subtext"><a href="register">You don't have an account yet ?  </a></p>
      
               </Grid.Column>
             </Grid.Row>
