@@ -101,8 +101,9 @@ export default class Chatbox extends Component {
     }
 
     sendMessage = (from_enter_key) => {
-   
         let message = ""
+        if (this.state.isEditing === false){
+        
         if (from_enter_key)
             message = this.state.oldValue
         else
@@ -121,7 +122,28 @@ export default class Chatbox extends Component {
            .catch((err) => {
                console.log(err)
            })
-    }
+        }
+        else{
+            if (from_enter_key)
+            message = this.state.oldValue
+        else
+            message = this.state.messageContent
+            let message_to_send = {       
+                content:  this.cleanMessage(message),
+            }
+          Axios.patch(configData.SERVER_URL + "messages/" + this.props.messageId + "/", message_to_send)
+               .then((res) => {
+
+            
+                   this.props.cancelEditing();
+                   this.props.refreshMessages()
+               })
+               .catch((err) => {
+                   console.log(err)
+               })
+            }
+        }
+    
 
 
     render() {

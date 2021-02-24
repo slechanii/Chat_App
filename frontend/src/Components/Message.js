@@ -77,7 +77,7 @@ export default class Message extends Component {
         </GridRow>
         :
         <div  className="message-row-edit" columns="16">
-        <Chatbox cancelEditing={() => {this.setState({editing: false})}}  isEditing={true} oldMessage={this.props.message} ></Chatbox>
+        <Chatbox messageId={this.props.messageId}  cancelEditing={() => {this.setState({editing: false})}}  isEditing={true} oldMessage={this.props.message} ></Chatbox>
         {/* <Button color="grey">Cancel</Button>
         <Button color="green">Save changes</Button> */}
         </div>
