@@ -14,6 +14,8 @@ export default class MessageDisplay extends Component {
     state = {
         deltaY: 0,
         maxDelta: 0,
+        alreadyEditing: false,
+        editedMessage: -1, 
     }
 
  
@@ -76,7 +78,7 @@ export default class MessageDisplay extends Component {
                 <div className="">
                      { showDate === true ?  <DateSeparator date={local_date_str}></DateSeparator>
                     : null}
-                    <Message refreshMessages={this.getMessages} refreshChannels={this.props.refreshChannels} profile_id={data.sender_id} showUsername={showUsername} date={data.sent_date} username={data.sender_name} messageId={data.id} message={data.content}></Message>
+                    <Message setEditedMessage={(id) => {this.setState({editedMessage: id})} } editedMessage={this.state.editedMessage} setEditing={(new_state) => {this.setState({alreadyEditing: new_state})}} isAlreadyEditing={this.state.alreadyEditing} refreshMessages={this.getMessages} refreshChannels={this.props.refreshChannels} profile_id={data.sender_id} showUsername={showUsername} date={data.sent_date} username={data.sender_name} messageId={data.id} message={data.content}></Message>
                
                    
                 </div>

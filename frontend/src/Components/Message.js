@@ -15,6 +15,26 @@ export default class Message extends Component {
     editing: false,
   };
 
+  editMessage = () => {
+    if (this.props.isAlreadyEditing === false ){         
+        this.setState({editing: true})
+        this.props.setEditing(true);
+        this.props.setEditedMessage(this.props.messageId)
+    }
+    else if (this.props.editedMessage === this.props.messageId){
+        this.setState({editing: true})
+        this.props.setEditing(true);
+        this.props.setEditedMessage(this.props.messageId)
+    }
+    
+  } 
+
+  cancelEditing = () => {
+    this.props.setEditing(false);
+    this.props.setEditedMessage(-1)
+    this.setState({editing: false})
+  }
+
   render() {
     let local_date = new Date(this.props.date);
     let time = local_date.toLocaleTimeString(navigator.language, {
@@ -72,12 +92,12 @@ export default class Message extends Component {
           </p>
             </GridColumn>
             <GridColumn>
-            {this.state.hover === true && <MessageMenuBar editMessage={() => {this.setState({editing: true})}} refreshMessages={this.getMessages} messageId={this.props.messageId} profileId={this.props.profile_id}></MessageMenuBar>}
+            {this.state.hover === true && <MessageMenuBar editMessage={this.editMessage} refreshMessages={this.getMessages} messageId={this.props.messageId} profileId={this.props.profile_id}></MessageMenuBar>}
             </GridColumn>
         </GridRow>
         :
         <div  className="message-row-edit" columns="16">
-        <Chatbox messageId={this.props.messageId}  cancelEditing={() => {this.setState({editing: false})}}  isEditing={true} oldMessage={this.props.message} ></Chatbox>
+        <Chatbox messageId={this.props.messageId}  cancelEditing={this.cancelEditing}  isEditing={true} oldMessage={this.props.message} ></Chatbox>
         {/* <Button color="grey">Cancel</Button>
         <Button color="green">Save changes</Button> */}
         </div>
