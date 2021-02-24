@@ -671,6 +671,22 @@ padding-bottom: 0 !important;
     
 }
 
+.message-row-edit{
+    /* display: inline-block !important; */
+    width: 100% !important;
+    padding: 8px 10px !important;
+    padding-left: 0px !important;
+    height: fit-content !important;
+    
+}
+
+.editing > #toolbar{
+    position: unset !important;
+    top: unset !important;
+    transform: unset !important;
+    width: 100% !important;
+}
+
 .message-row:hover{
     background: rgb(247, 243, 243); 
 }
@@ -896,10 +912,19 @@ padding-bottom: 0 !important;
 }
 
 .message-menu-bar{
-    width: 100px !important;
+    /* width: 100px !important; */
     float: right;
     min-height: unset !important;
     height: 25px !important;
+}
+
+.message-menu-bar-btn > .icon {
+    color: rgb(68, 68, 68) !important;
+}  
+
+.message-menu-bar-btn:hover{
+    background: rgba(219, 211, 211, 0.295) !important;
+    cursor: pointer;
 }
 
 /* 

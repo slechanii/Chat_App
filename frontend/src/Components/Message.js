@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Grid, GridRow, GridColumn } from "semantic-ui-react";
+import { Grid, GridRow, GridColumn, Button } from "semantic-ui-react";
 import UserProfileMenu from "./UserProfileMenu";
 import UserProfilePopup from "./UserProfilePopup";
 import MessageMenuBar from "./MessageMenuBar";
+import Chatbox from "./Chatbox";
 
 export default class Message extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export default class Message extends Component {
 
   state = {
     hover: false,
-    editing: false
+    editing: false,
   };
 
   render() {
@@ -23,54 +24,9 @@ export default class Message extends Component {
     let username_trigger = (
       <span className="chat-message-username">{this.props.username}</span>
     );
-    return (
-    //   <div
-    //     className="message-row"
-    //     onMouseEnter={() => this.setState({ hover: true })}
-    //     onMouseLeave={() => this.setState({ hover: false })}
-    //   >
-    //     <div className="message-left-col">
-    //       {this.props.showUsername === false && (
-    //         <span className="chat-message-side-time">{time}</span>
-    //       )}
-    //       {this.props.showUsername === true && (
-    //         <UserProfilePopup
-    //           profile_id={this.props.profile_id}
-    //           refreshChannels={this.props.refreshChannels}
-    //           username={this.props.username}
-    //         ></UserProfilePopup>
-    //       )}
-    //     </div>
-    //     <div className="message-right-col">
-    //       {this.props.showUsername === true && (
-    //         <div className="chat-message-header">
-    //           <div className="message-menu-col">
-    //             {this.state.hover === true && <MessageMenuBar></MessageMenuBar>}
-    //           </div>
-    //           {username_trigger}
-    //           {/* <UserProfileMenu isUsername={true}></UserProfileMenu> */}
-    //           <span className="chat-message-time">{time}</span>
-    //         </div>
-    //       )}
-
-    //       {this.props.showUsername === false && (
-    //         <div className="chat-message-header-menu">
-    //           <div className="message-menu-col">
-    //             {this.state.hover === true && <MessageMenuBar></MessageMenuBar>}
-    //           </div>
-          
-    //         </div>
-    //       )}
-
-    //       <p className="chat-message">
-    //         {/* {this.props.message} */}
-    //         <span
-    //           dangerouslySetInnerHTML={{ __html: this.props.message }}
-    //         ></span>
-    //       </p>
-    //     </div>
-    //   </div>
+    return ( 
     <Grid>
+        {this.state.editing === false ?
         <GridRow         className="message-row"
         onMouseEnter={() => this.setState({ hover: true })}
         onMouseLeave={() => this.setState({ hover: false })}
@@ -97,7 +53,6 @@ export default class Message extends Component {
           
               </div>
               {username_trigger}
-              {/* <UserProfileMenu isUsername={true}></UserProfileMenu> */}
               <span className="chat-message-time">{time}</span>
             </div>
           )}
@@ -111,16 +66,22 @@ export default class Message extends Component {
             </div>
           )}
             <p className="chat-message">
-            {/* {this.props.message} */}
             <span
               dangerouslySetInnerHTML={{ __html: this.props.message }}
             ></span>
           </p>
             </GridColumn>
             <GridColumn>
-            {this.state.hover === true && <MessageMenuBar></MessageMenuBar>}
+            {this.state.hover === true && <MessageMenuBar editMessage={() => {this.setState({editing: true})}} refreshMessages={this.getMessages} messageId={this.props.messageId} profileId={this.props.profile_id}></MessageMenuBar>}
             </GridColumn>
         </GridRow>
+        :
+        <div  className="message-row-edit" columns="16">
+        <Chatbox cancelEditing={() => {this.setState({editing: false})}}  isEditing={true} oldMessage={this.props.message} ></Chatbox>
+        {/* <Button color="grey">Cancel</Button>
+        <Button color="green">Save changes</Button> */}
+        </div>
+        }
     </Grid>
     );
   }

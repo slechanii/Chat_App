@@ -9,6 +9,8 @@ import ReactQuill, {Quill} from 'react-quill';
 
 
 const CustomButton = () => <Icon name="send"></Icon>
+const BackButton = () => <Icon name="backward"></Icon> 
+
 // const CustomToolbar = () => (
 //     <div id="toolbar">
 //       {/* "bold", "italic", "strike", "underline", "blockquote", { list: "bullet" }, {'list': 'ordered'}, "link", {insertStar: this.insertStar} */}
@@ -40,14 +42,19 @@ const CustomButton = () => <Icon name="send"></Icon>
       <button className="ql-blockquote"></button>        
       <button className="ql-send-message" onClick={() => {this.props.sendMessage(false)}}>
         <CustomButton />
+       
       </button>
+      {this.props.isEditing === true &&
+      <button className="ql-edit-message" onClick={this.props.cancelEditing}>
+        <BackButton/>
+        </button>
+      }
     </div>
   )
       }
   }
 
   function insertStar()  {
-    alert("star")
 }
 
 export default class Chatbox extends Component {
@@ -60,8 +67,15 @@ export default class Chatbox extends Component {
         messageContent : "",       
         oldValue: "",
         value: "",
+        isEditing: false, 
     }
 
+    componentDidMount () {
+        if (this.props.isEditing === true){
+            this.setState({messageContent: this.props.oldMessage})
+            this.setState({isEditing: true})
+        }
+    }
 
 
     onChangeMessage = (html) => {
@@ -130,13 +144,13 @@ export default class Chatbox extends Component {
         //   alert("name in box : " + this.props.channel)
         return (
             
-            <Grid.Row className="chatbox-container">
+            <Grid.Row className={`chatbox-container ${this.props.isEditing ? " editing " : ""}`}>
             
             {/* <ReactQuill value={this.state.messageContent} onKeyDown={(e) => {this.handleKey(e)}}  ref={(el) => {this.reactQuillRef = el}} className="chatbox-wrapper" modules={quillToolbar} theme="snow" onChange={this.onChangeMessage} > */}
             <ReactQuill key={this.props.channelName} placeholder={"Write a message to #" + this.props.channelName} value={this.state.messageContent} onKeyDown={(e) => {this.handleKey(e)}}  ref={(el) => {this.reactQuillRef = el}} className="chatbox-wrapper" modules={Chatbox.modules} theme="snow" onChange={this.onChangeMessage} >
               {/* <div className="chatbox-input"/> */}
               </ReactQuill> 
-              <CustomToolbar sendMessage={this.sendMessage}></CustomToolbar>
+              <CustomToolbar cancelEditing={this.props.cancelEditing} isEditing={this.state.isEditing} sendMessage={this.sendMessage}></CustomToolbar>
   
                 {/* <Grid className="chatbox">
                     <Grid.Row className="chatbox-textarea-row">

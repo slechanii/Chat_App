@@ -31,8 +31,6 @@ export default class Chat extends Component {
       // Used for user to user chats => returns name of other user to display as channel title
   getChatName = () => {
       if (this.state.channel_members != undefined){  
-        //   alert(localStorage.getItem("user_id"))
-        //   alert(this.state.channel_members.indexOf(parseInt(localStorage.getItem("user_id"))))
     let user_id = null;
     if (
       this.state.channel_members.indexOf(parseInt(localStorage.getItem("user_id"))) === 0
@@ -74,10 +72,9 @@ export default class Chat extends Component {
 
 
     render() {
+ 
         if (this.props.refreshChat === true) {
             this.getMessages();
-            // if (this.state.channel_members.length > 0 && this.state.is_user_chat === true)
-            // this.getChatName();
             this.props.changeState("refreshChat", false)
         }
 
@@ -97,11 +94,11 @@ export default class Chat extends Component {
                     <div>
                     </div>
                     <Grid.Row className="chat-messages-container">
-                        <MessageDisplay refreshChannels={this.props.refreshChannels} messages={this.state.messages}>
+                        <MessageDisplay refreshChannels={this.props.refreshChannels} refreshMessages={this.getMessages} messages={this.state.messages}>
                         </MessageDisplay>
                     </Grid.Row>
 
-                    <Chatbox channelName={this.state.channel_name} refreshMessages={this.getMessages}></Chatbox>
+                    <Chatbox isEditing={false} channelName={this.state.channel_name} refreshMessages={this.getMessages}></Chatbox>
 
                 </Grid>
 
